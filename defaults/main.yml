@@ -5,13 +5,13 @@ haproxy_user: haproxy
 haproxy_group: haproxy
 
 # Frontend settings.
-haproxy_frontend_name: 'hafrontend'
+haproxy_frontend_name: 'main'
 haproxy_frontend_bind_address: '*'
 haproxy_frontend_port: 8080
 haproxy_frontend_mode: 'http'
 
 # Backend settings.
-haproxy_backend_name: 'habackend'
+haproxy_backend_name: 'www'
 haproxy_backend_mode: 'http'
 haproxy_backend_balance_method: 'roundrobin'
 haproxy_backend_httpchk: 'HEAD / HTTP/1.1\r\nHost:localhost'
