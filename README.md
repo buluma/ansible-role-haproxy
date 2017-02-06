@@ -64,7 +64,7 @@ None.
     - hosts: balancer
       sudo: yes
       roles:
-        - { role: geerlingguy.haproxy }
+        - { role: buluma.haproxy }
 
 ## License
 
