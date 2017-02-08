@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy)
 
+[![Test Coverage](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/coverage.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy/coverage)
+
+[![Code Climate](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/gpa.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy)
+
+[![Issue Count](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/issue_count.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy)
+
 Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
 
 **Note**: This role _officially_ supports HAProxy versions 1.6. Future versions may require some rework.
