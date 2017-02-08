@@ -1,6 +1,5 @@
 # Ansible Role: HAProxy
-
-[![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy   
+[![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy)
 
 [![Test Coverage](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/coverage.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy/coverage) [![Code Climate](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/gpa.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy) [![Issue Count](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/issue_count.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy)
 
