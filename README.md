@@ -68,4 +68,4 @@ None.
 
 ## License
 
-MIT / BSD
+GNU
