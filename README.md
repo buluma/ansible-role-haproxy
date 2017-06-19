@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/gpa.svg)](https://codeclimate.com/buluma/ansible-role-haproxy)
 [![Issue Count](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/issue_count.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/65c11dfca38141b9add48853ab2487fa)](https://www.codacy.com/app/buluma/ansible-role-haproxy?utm_source=github.com&utm_medium=referral&utm_content=buluma/ansible-role-haproxy&utm_campaign=badger)
+[![CircleCI](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master)
 
 Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
 
