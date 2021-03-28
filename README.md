@@ -1,5 +1,4 @@
 # Ansible Role: HAProxy
-[![CI](https://github.com/buluma/ansible-role-haproxy/workflows/CI/badge.svg?event=push)](https://github.com/buluma/ansible-role-haproxy/actions?query=workflow%3ACI)
 [![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy) 
 [![Test Coverage](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/coverage.svg)](https://codeclimate.com/github/buluma/ansible-role-haproxy/coverage)
 [![Code Climate](https://codeclimate.com/github/buluma/ansible-role-haproxy/badges/gpa.svg)](https://codeclimate.com/buluma/ansible-role-haproxy)
