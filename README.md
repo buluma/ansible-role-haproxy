@@ -8,7 +8,7 @@
 
 Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
 
-**Note**: This role _officially_ supports HAProxy versions 1.6. Future versions may require some rework.
+**Note**: This role _officially_ supports HAProxy versions 1.4 or 1.5. Future versions may require some rework.
 
 ## Requirements
 
@@ -53,6 +53,12 @@ HAProxy backend configuration directives.
 
 A list of backend servers (name and address) to which HAProxy will distribute requests.
 
+    haproxy_connect_timeout: 5000
+    haproxy_client_timeout: 50000
+    haproxy_server_timeout: 50000
+
+HAProxy default timeout configurations.
+
     haproxy_global_vars:
       - 'ssl-default-bind-ciphers ABCD+KLMJ:...'
       - 'ssl-default-bind-options no-sslv3'
@@ -68,8 +74,12 @@ None.
     - hosts: balancer
       sudo: yes
       roles:
-        - { role: buluma.haproxy }
+        - { role: geerlingguy.haproxy }
 
 ## License
 
-GNU
+MIT / BSD
+
+## Author Information
+
+This role was created in 2015 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
