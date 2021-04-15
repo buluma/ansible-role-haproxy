@@ -1,7 +1,7 @@
 # Ansible Role: HAProxy
 [![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy) 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0233d74a84949ce92b55cee471d2978)](https://www.codacy.com/gh/buluma/ansible-role-haproxy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=buluma/ansible-role-haproxy&amp;utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master)
+[![CircleCI](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master) [![HitCount](http://hits.dwyl.com/buluma/buluma/ansible-role-haproxy.svg)](http://hits.dwyl.com/buluma/buluma/ansible-role-haproxy)
 
 Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
 
