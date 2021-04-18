@@ -33,7 +33,7 @@ jobs:
 
       - name: Lint code.
         run: |
-          yamllint .
+          yamllint .codeclimate.yml .travis.yml _config.yml
 
   molecule:
     name: Molecule
