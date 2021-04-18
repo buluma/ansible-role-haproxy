@@ -10,7 +10,7 @@ name: CI
 
 defaults:
   run:
-    working-directory: 'geerlingguy.haproxy'
+    working-directory: 'buluma.haproxy'
 
 jobs:
 
@@ -21,19 +21,19 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'geerlingguy.haproxy'
+          path: 'buluma.haproxy'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
-      - name: Install test dependencies.
-        run: pip3 install yamllint
+#       - name: Install test dependencies.
+#         run: pip3 install yamllint
 
-      - name: Lint code.
-        run: |
-          yamllint .
+#       - name: Lint code.
+#         run: |
+#           yamllint .
 
   molecule:
     name: Molecule
@@ -48,7 +48,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'geerlingguy.haproxy'
+          path: 'buluma.haproxy'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
