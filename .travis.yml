@@ -6,24 +6,18 @@ env:
   - distro: centos7
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-   - distro: centos7
-     init: /sbin/init
-     run_opts: ""
-   - distro: centos8
+   - distro: centos6
      init: /sbin/init
      run_opts: ""
    - distro: ubuntu1604
      init: /lib/systemd/systemd
      run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: ubuntu1804
-     init: /lib/systemd/systemd
-     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-   - distro: ubuntu2004
+   - distro: ubuntu1404
      init: /sbin/init
      run_opts: ""
-  # - distro: ubuntu1204
-    # init: /sbin/init
-    # run_opts: ""
+  - distro: ubuntu1204
+    init: /sbin/init
+    run_opts: ""
 
 before_install:
   # Pull container.
