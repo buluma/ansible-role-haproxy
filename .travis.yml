@@ -15,7 +15,7 @@ env:
   #  - distro: ubuntu1404
   #    init: /sbin/init
   #    run_opts: ""
-  - distro: ubuntu1204
+  - distro: ubuntu1604
     init: /sbin/init
     run_opts: ""
 
