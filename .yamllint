@@ -5,6 +5,9 @@ rules:
   line-length:
     max: 200
     level: warning
+  truthy: false
+  comments-indentation: disable
+  comments: disable
 
 ignore: |
   .github/stale.yml

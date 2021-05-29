@@ -1,29 +1,67 @@
-diff --git a/.codeclimate.yml b/.codeclimate.yml
-index e69de29..e676d61 100644
---- a/.codeclimate.yml
-+++ b/.codeclimate.yml
-@@ -0,0 +1,24 @@
-+---
-+engines:
-+  duplication:
-+    enabled: true
-+    config:
-+      languages:
-+      - ruby
-+      - javascript
-+      - python
-+      - php
-+  fixme:
-+    enabled: true
-+  phpmd:
-+    enabled: true
-+ratings:
-+  paths:
-+  - "**.inc"
-+  - "**.js"
-+  - "**.jsx"
-+  - "**.module"
-+  - "**.php"
-+  - "**.py"
-+  - "**.rb"
-+exclude_paths: []
+---
+version: "2"         # required to adjust maintainability checks
+
+checks:
+  argument-count:
+    enabled: true
+    config:
+      threshold: 4
+  complex-logic:
+    enabled: true
+    config:
+      threshold: 4
+  file-lines:
+    enabled: true
+    config:
+      threshold: 250
+  method-complexity:
+    enabled: true
+    config:
+      threshold: 5
+  method-count:
+    enabled: true
+    config:
+      threshold: 20
+  method-lines:
+    enabled: true
+    config:
+      threshold: 25
+  nested-control-flow:
+    enabled: true
+    config:
+      threshold: 4
+  return-statements:
+    enabled: true
+    config:
+      threshold: 4
+  similar-code:
+    enabled: true
+    config:
+      threshold: #language-specific defaults. overrides affect all languages.
+  identical-code:
+    enabled: true
+    config:
+      threshold: #language-specific defaults. overrides affect all languages.
+
+# plugins:
+#   eslint:
+#     enabled: true
+#     channel: "eslint-6"
+#   rubocop:
+#     enabled: true
+#     channel: "rubocop-0-79"
+
+exclude_patterns:
+  - "config/"
+  - "db/"
+  - "dist/"
+  - "features/"
+  - "**/node_modules/"
+  - "script/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "Tests/"
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"

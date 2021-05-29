@@ -28,12 +28,12 @@ jobs:
         with:
           python-version: '3.x'
 
-#       - name: Install test dependencies.
-#         run: pip3 install yamllint
+    # - name: Install test dependencies.
+      #  run: pip3 install yamllint
 
-#       - name: Lint code.
-#         run: |
-#           yamllint .travis.yml
+      # - name: Lint code.
+      #  run: |
+      #    yamllint .travis.yml
 
   molecule:
     name: Molecule
@@ -43,7 +43,7 @@ jobs:
         distro:
           - centos7
           - centos8
-          - ubuntu1604 
+          - ubuntu1604
           - ubuntu1804
           - ubuntu2004
 
