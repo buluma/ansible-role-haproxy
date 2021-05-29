@@ -1,7 +1,7 @@
 # Ansible Role: Haproxy
 [![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy) 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0233d74a84949ce92b55cee471d2978)](https://www.codacy.com/gh/buluma/ansible-role-haproxy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=buluma/ansible-role-haproxy&amp;utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master) [![CI](https://github.com/buluma/ansible-role-haproxy/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/ci.yml) [![GitHub Action](https://github.com/buluma/ansible-role-haproxy/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/main.yml) [![Release](https://github.com/buluma/ansible-role-haproxy/actions/workflows/release.yml/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/release.yml) ![Ansible Role](https://img.shields.io/ansible/role/d/54369?color=blue)
+[![CircleCI](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master) [![CI](https://github.com/buluma/ansible-role-haproxy/actions/workflows/ci.yml/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/ci.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/7b22a755aece25a3ad06/maintainability)](https://codeclimate.com/github/buluma/ansible-role-haproxy/maintainability) [![Release](https://github.com/buluma/ansible-role-haproxy/actions/workflows/release.yml/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/release.yml) ![Ansible Role](https://img.shields.io/ansible/role/d/54369?color=blue)
 
 Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
 
@@ -79,4 +79,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2015 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+This role was created in 2020 by [Michael Buluma](https://www.github.com/buluma).
