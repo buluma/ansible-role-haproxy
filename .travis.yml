@@ -3,15 +3,18 @@ group: edge
 services: docker
 
 env:
+  - distro: centos8
+    init: /usr/lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distro: centos7
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
   #  - distro: centos6
   #    init: /sbin/init
   #    run_opts: ""
-  #  - distro: ubuntu1604
-  #    init: /lib/systemd/systemd
-  #    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+   - distro: ubuntu2004
+     init: /lib/systemd/systemd
+     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
   #  - distro: ubuntu1404
   #    init: /sbin/init
   #    run_opts: ""
@@ -45,6 +48,7 @@ script:
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
+    
   # Make sure haproxy is installed.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm haproxy -v'
 
