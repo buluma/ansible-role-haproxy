@@ -35,6 +35,16 @@ jobs:
       #  run: |
       #    yamllint .travis.yml
 
+      - name: Create Issue on lint failure.
+        if: failure()
+        uses: buluma/create-issue-action@v2.0.0
+        with:
+          title: Lint Failed
+          token: ${{secrets.GITHUB_TOKEN}}
+          assignees: ${{github.actor}}
+          labels: bug
+          body: Workflow lint test failed for commit ${{github.sha}}
+
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
@@ -67,3 +77,13 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
+
+      - name: Create Issue on molecule test failure.
+        if: failure()
+        uses: buluma/create-issue-action@v2.0.0
+        with:
+          title: Build Failed
+          token: ${{secrets.GITHUB_TOKEN}}
+          assignees: ${{github.actor}}
+          labels: bug
+          body: Workflow molecule test failed for commit ${{github.sha}}
