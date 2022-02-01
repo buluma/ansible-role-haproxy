@@ -47,6 +47,8 @@ jobs:
           body: Workflow lint test failed for commit ${{github.sha}}
 
   molecule:
+    needs:
+      - lint
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
