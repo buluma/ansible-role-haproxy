@@ -57,7 +57,7 @@ jobs:
           # - ubuntu1604
           - ubuntu1804
           - ubuntu2004
-          - docker-rockylinux8-ansible
+          # - docker-rockylinux8-ansible
 
     steps:
       - name: Check out the codebase.
