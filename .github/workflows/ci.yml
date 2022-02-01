@@ -1,5 +1,5 @@
 ---
-name: CI
+name: Ansible Molecule
 'on':
   pull_request:
   push:
