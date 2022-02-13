@@ -2,12 +2,15 @@
 extends: default
 
 rules:
-  line-length:
-    max: 200
-    level: warning
-  truthy: false
-  comments-indentation: disable
-  comments: disable
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  line-length: disable
+  truthy: disable
 
 ignore: |
-  .github/stale.yml
+  .tox/
+  .cache/

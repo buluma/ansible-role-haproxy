@@ -1,82 +1,174 @@
-# Ansible Role: Haproxy
-[![Build Status](https://travis-ci.org/buluma/ansible-role-haproxy.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-haproxy) 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0233d74a84949ce92b55cee471d2978)](https://www.codacy.com/gh/buluma/ansible-role-haproxy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=buluma/ansible-role-haproxy&amp;utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/buluma/ansible-role-haproxy/tree/master) [![CI](https://github.com/buluma/ansible-role-haproxy/actions/workflows/ci.yml/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/ci.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/7b22a755aece25a3ad06/maintainability)](https://codeclimate.com/github/buluma/ansible-role-haproxy/maintainability) [![Release](https://github.com/buluma/ansible-role-haproxy/actions/workflows/release.yml/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions/workflows/release.yml) ![Ansible Role](https://img.shields.io/ansible/role/d/54369?color=blue)
+# [haproxy](#haproxy)
 
-Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
+Install and configure haproxy on your system.
 
-**Note**: This role _officially_ supports HAProxy versions 1.4 or 1.5. Future versions may require some rework.
+|GitHub|GitLab|Quality|Downloads|Version|
+|------|------|-------|---------|-------|
+|[![github](https://github.com/buluma/ansible-role-haproxy/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions)|[![gitlab](https://gitlab.com/buluma/ansible-role-haproxy/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-haproxy)|[![quality](https://img.shields.io/ansible/quality/54369)](https://galaxy.ansible.com/buluma/haproxy)|[![downloads](https://img.shields.io/ansible/role/d/54369)](https://galaxy.ansible.com/buluma/haproxy)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/releases/)|
 
-## Requirements
+## [Example Playbook](#example-playbook)
 
-None.
+This example is taken from `molecule/default/converge.yml` and is tested on each push, pull request and release.
+```yaml
+---
+- name: Converge
+  hosts: all
+  become: yes
+  gather_facts: yes
 
-## Role Variables
+  roles:
+    - role: buluma.haproxy
+      haproxy_frontends:
+        - name: http
+          address: "*"
+          port: 80
+          default_backend: backend
+        - name: https
+          address: "*"
+          port: 443
+          default_backend: backend
+          ssl: yes
+          crts:
+            - /tmp/haproxy.keycrt
+        - name: smtp
+          address: "*"
+          port: 25
+          default_backend: smtp
+          mode: tcp
+      haproxy_backend_default_balance: roundrobin
+      haproxy_backends:
+        - name: backend
+          httpcheck: yes
+          balance: roundrobin
+          # You can refer to hosts in an Ansible group.
+          # The `ansible_default_ipv4` will be used as an address to connect to.
+          servers: "{{ groups['all'] }}"
+          port: 8080
+          options:
+            - check
+        - name: smtp
+          httpcheck: yes
+          balance: roundrobin
+          # You can also refer to a list of servers.
+          servers:
+            - name: first
+              address: "127.0.0.1"
+              port: 25
+            - name: second
+              address: "127.0.0.2"
+              port: 25
+          port: 25
+          options:
+            - check
+```
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
+The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
+```yaml
+---
+- name: Prepare
+  hosts: all
+  become: yes
+  gather_facts: no
 
-    haproxy_socket: /var/lib/haproxy/stats
+  roles:
+    - role: buluma.bootstrap
+    - role: buluma.core_dependencies
+    - role: buluma.epel
+    - role: buluma.buildtools
+    - role: buluma.python_pip
+    - role: buluma.openssl
+      openssl_key_directory: /tmp
+      openssl_items:
+        - name: haproxy
+          common_name: "{{ ansible_fqdn }}"
+    # This role is applied to serve as a mock "backend" server. See `molecule/default/verify.yml`.
+    - role: buluma.httpd
+      httpd_port: 8080
+```
 
-The socket through which HAProxy can communicate (for admin purposes or statistics). To disable/remove this directive, set `haproxy_socket: ''` (an empty string).
 
-    haproxy_chroot: /var/lib/haproxy
+## [Role Variables](#role-variables)
 
-The jail directory where chroot() will be performed before dropping privileges. To disable/remove this directive, set `haproxy_chroot: ''` (an empty string). Only change this if you know what you're doing!
+The default values for the variables are set in `defaults/main.yml`:
+```yaml
+---
+# defaults file for haproxy
 
-    haproxy_user: haproxy
-    haproxy_group: haproxy
+# Configure stats in HAProxy?
+haproxy_stats: yes
+haproxy_stats_port: 1936
 
-The user and group under which HAProxy should run. Only change this if you know what you're doing!
+# Default setttings for HAProxy.
+haproxy_retries: 3
+haproxy_timeout_http_request: 10s
+haproxy_timeout_connect: 10s
+haproxy_timeout_client: 1m
+haproxy_timeout_server: 1m
+haproxy_timeout_http_keep_alive: 10s
+haproxy_timeout_check: 10s
+haproxy_maxconn: 3000
+```
 
-    haproxy_frontend_name: 'hafrontend'
-    haproxy_frontend_bind_address: '*'
-    haproxy_frontend_port: 80
-    haproxy_frontend_mode: 'http'
+## [Requirements](#requirements)
 
-HAProxy frontend configuration directives.
+- pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-haproxy/blob/main/requirements.txt).
 
-    haproxy_backend_name: 'habackend'
-    haproxy_backend_mode: 'http'
-    haproxy_backend_balance_method: 'roundrobin'
-    haproxy_backend_httpchk: 'HEAD / HTTP/1.1\r\nHost:localhost'
+## [Status of used roles](#status-of-requirements)
 
-HAProxy backend configuration directives.
+The following roles are used to prepare a system. You can prepare your system in another way.
 
-    haproxy_backend_servers:
-      - name: app1
-        address: 192.168.0.1:80
-      - name: app2
-        address: 192.168.0.2:80
+| Requirement | GitHub | GitLab |
+|-------------|--------|--------|
+|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-bootstrap/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-bootstrap)|
+|[buluma.buildtools](https://galaxy.ansible.com/buluma/buildtools)|[![Build Status GitHub](https://github.com/buluma/ansible-role-buildtools/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-buildtools/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-buildtools/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-buildtools)|
+|[buluma.core_dependencies](https://galaxy.ansible.com/buluma/core_dependencies)|[![Build Status GitHub](https://github.com/buluma/ansible-role-core_dependencies/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-core_dependencies/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-core_dependencies/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-core_dependencies)|
+|[buluma.epel](https://galaxy.ansible.com/buluma/epel)|[![Build Status GitHub](https://github.com/buluma/ansible-role-epel/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-epel/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-epel/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-epel)|
+|[buluma.httpd](https://galaxy.ansible.com/buluma/httpd)|[![Build Status GitHub](https://github.com/buluma/ansible-role-httpd/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-httpd/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-httpd/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-httpd)|
+|[buluma.openssl](https://galaxy.ansible.com/buluma/openssl)|[![Build Status GitHub](https://github.com/buluma/ansible-role-openssl/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-openssl/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-openssl/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-openssl)|
+|[buluma.python_pip](https://galaxy.ansible.com/buluma/python_pip)|[![Build Status GitHub](https://github.com/buluma/ansible-role-python_pip/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-python_pip/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-python_pip/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-python_pip)|
 
-A list of backend servers (name and address) to which HAProxy will distribute requests.
+## [Context](#context)
 
-    haproxy_connect_timeout: 5000
-    haproxy_client_timeout: 50000
-    haproxy_server_timeout: 50000
+This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://buluma.co.ke/) for further information.
 
-HAProxy default timeout configurations.
+Here is an overview of related roles:
 
-    haproxy_global_vars:
-      - 'ssl-default-bind-ciphers ABCD+KLMJ:...'
-      - 'ssl-default-bind-options no-sslv3'
+![dependencies](https://raw.githubusercontent.com/buluma/ansible-role-haproxy/png/requirements.png "Dependencies")
 
-A list of extra global variables to add to the global configuration section inside `haproxy.cfg`.
+## [Compatibility](#compatibility)
 
-## Dependencies
+This role has been tested on these [container images](https://hub.docker.com/u/buluma):
 
-None.
+|container|tags|
+|---------|----|
+|el|8|
+|debian|all|
+|fedora|all|
+|opensuse|all|
+|ubuntu|all|
 
-## Example Playbook
+The minimum version of Ansible required is 2.10, tests have been done to:
 
-    - hosts: balancer
-      sudo: yes
-      roles:
-        - { role: buluma.haproxy }
+- The previous version.
+- The current version.
+- The development version.
 
-## License
+## [Exceptions](#exceptions)
 
-MIT / BSD
+Some roles can't run on a specific distribution or version. Here are some exceptions.
 
-## Author Information
+| variation                 | reason                 |
+|---------------------------|------------------------|
+| amazonlinux:1 | /etc/init.d/haproxy: line 17: /etc/sysconfig/network: No such file or directory |
+| ubuntu:xenial | Setup script exited with error: command 'x86_64-linux-gnu-gcc' failed with exit status 1 |
 
-This role was created in 2020 by [Michael Buluma](https://www.github.com/buluma).
+
+If you find issues, please register them in [GitHub](https://github.com/buluma/ansible-role-haproxy/issues)
+
+## [License](#license)
+
+Apache-2.0
+
+## [Author Information](#author-information)
+
+[Michael Buluma](https://buluma.github.io/)

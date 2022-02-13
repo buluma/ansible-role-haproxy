@@ -1,56 +1,59 @@
+{{ ansible_managed | comment }}
 global
-  log /dev/log  local0
-  log /dev/log  local1 notice
-{% if haproxy_socket != '' %}
-  stats socket {{ haproxy_socket }} level admin
-{% endif %}
-{% if haproxy_chroot != '' %}
-  chroot {{ haproxy_chroot }}
-{% endif %}
-  user {{ haproxy_user }}
-  group {{ haproxy_group }}
-  daemon
-{% for global_var in haproxy_global_vars %}
-  {{ global_var }}
-{% endfor %}
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+    stats       socket /var/lib/haproxy/stats
 
 defaults
-  log global
-  mode  http
-  option  httplog
-  option  dontlognull
-{% if haproxy_version == '1.4' %}
-        contimeout {{ haproxy_connect_timeout }}
-        clitimeout {{ haproxy_client_timeout }}
-        srvtimeout {{ haproxy_server_timeout }}
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option                  http-server-close
+    option                  forwardfor except 127.0.0.0/8
+    option                  redispatch
+    retries                 {{ haproxy_retries }}
+    timeout http-request    {{ haproxy_timeout_http_request }}
+    timeout queue           {{ haproxy_timeout_check }}
+    timeout connect         {{ haproxy_timeout_connect }}
+    timeout client          {{ haproxy_timeout_client }}
+    timeout server          {{ haproxy_timeout_server }}
+    timeout http-keep-alive {{ haproxy_timeout_http_keep_alive }}
+    timeout check           {{ haproxy_timeout_check }}
+    maxconn                 {{ haproxy_maxconn }}
+
+{% if haproxy_stats == true %}
+listen stats
+    bind                 :{{ haproxy_stats_port }}
+    mode                 http
+    stats                enable
+    stats                uri /stats
+{% endif %}
+
+{% for frontend in haproxy_frontends %}
+frontend {{ frontend.name }}
+    bind {{ frontend.address }}:{{ frontend.port }}{% if frontend.ssl is defined and frontend.ssl == true %} ssl{% endif %}{% if frontend.crts is defined and frontend.crts | length >0 %}{% for crt in frontend.crts %} crt {{ crt }}{% endfor %}{% endif %}
+
+    default_backend {{ frontend.default_backend }}
+    mode {{ frontend.mode | default('http') }}
+{% endfor %}
+{% for backend in haproxy_backends %}
+backend {{ backend.name }}
+{% if backend.httpcheck %}
+    option httpchk {% if backend.httpcheck_method is defined %}{{ backend.httpcheck_method }}{% endif %}{% endif %}
+
+    balance {{ backend.balance | default(haproxy_backend_default_balance) }}
+    mode {{ backend.mode | default('http') }}
+{% for server in backend.servers %}
+{% if server.name is defined %}
+    server {{ server.name }} {{ server.address | default(hostvars[server.name]['ansible_default_ipv4']['address']) }}:{{ server.port | default(backend.port) }} {{ backend.options | join(' ') }}
 {% else %}
-        timeout connect {{ haproxy_connect_timeout }}
-        timeout client {{ haproxy_client_timeout }}
-        timeout server {{ haproxy_server_timeout }}
+    server {{ server }} {{ hostvars[server]['ansible_default_ipv4']['address'] }}:{{ backend.port }} {{ backend.options | join(' ') }}
 {% endif %}
-{% if ansible_os_family == 'Debian' %}
-  errorfile 400 /etc/haproxy/errors/400.http
-  errorfile 403 /etc/haproxy/errors/403.http
-  errorfile 408 /etc/haproxy/errors/408.http
-  errorfile 500 /etc/haproxy/errors/500.http
-  errorfile 502 /etc/haproxy/errors/502.http
-  errorfile 503 /etc/haproxy/errors/503.http
-  errorfile 504 /etc/haproxy/errors/504.http
-{% endif %}
-
-frontend {{ haproxy_frontend_name }}
-    bind {{ haproxy_frontend_bind_address }}:{{ haproxy_frontend_port }}
-    mode {{ haproxy_frontend_mode }}
-    default_backend {{ haproxy_backend_name }}
-
-backend {{ haproxy_backend_name }}
-    mode {{ haproxy_backend_mode }}
-    balance {{ haproxy_backend_balance_method }}
-    option forwardfor
-{% if haproxy_backend_httpchk != '' %}
-    option httpchk {{ haproxy_backend_httpchk }}
-{% endif %}
-    cookie SERVERID insert indirect
-{% for backend in haproxy_backend_servers %}
-    server {{ backend.name }} {{ backend.address }} cookie {{ backend.name }} check
+{% endfor %}
 {% endfor %}
