@@ -15,5 +15,6 @@ jobs:
         env:
           GITLAB_HOSTNAME: "gitlab.com"
           GITLAB_USERNAME: "buluma"
-          GITLAB_PASSWORD: ${{ secrets.GITLAB_PASSWORD }}          GITLAB_PROJECT_ID: "33417016x"   # TODO: Needs to be updated
+          GITLAB_PASSWORD: ${{ secrets.GITLAB_PASSWORD }}
+          GITLAB_PROJECT_ID: "33687713"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

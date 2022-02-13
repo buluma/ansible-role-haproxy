@@ -1,3 +1,4 @@
+---
 # This workflow checks out code, performs a Codacy security scan
 # and integrates the results with the
 # GitHub Advanced Security code scanning feature.  For more information on
