@@ -1,4 +1,8 @@
 ---
+#
+# Ansible managed
+#
+
 name: Release Drafter
 
 on:
