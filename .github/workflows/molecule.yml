@@ -40,8 +40,8 @@ jobs:
             tag: "latest"
           - image: "debian-systemd"
             tag: "latest"
-          - image: "debian-systemd"
-            tag: "bookworm"
+          # - image: "debian-systemd"
+           # tag: "bookworm"  # TODO: Cannot detect the required Python library cryptography (>= 1.2.3)"}
           - image: "fedora-systemd"
             tag: "34"
           - image: "fedora-systemd"
