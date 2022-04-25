@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.2...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.3...HEAD)
+
+**Merged pull requests:**
+
+- Bump buluma/gh-action-auto-merge-dependabot-updates from 1.0.4 to 1.0.5 [\#52](https://github.com/buluma/ansible-role-haproxy/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v2.4.3](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.3) (2022-04-24)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.2...v2.4.3)
 
 **Closed issues:**
 
@@ -15,10 +23,6 @@
 ## [v2.4.1](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.1) (2022-03-10)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.0...v2.4.1)
-
-**Merged pull requests:**
-
-- Bump codacy/codacy-analysis-cli-action from 4.0.0 to 4.0.2 [\#49](https://github.com/buluma/ansible-role-haproxy/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.0) (2022-03-03)
 
@@ -34,8 +38,8 @@
 
 **Merged pull requests:**
 
+- Bump codacy/codacy-analysis-cli-action from 4.0.0 to 4.0.2 [\#49](https://github.com/buluma/ansible-role-haproxy/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#45](https://github.com/buluma/ansible-role-haproxy/pull/45) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Testing [\#44](https://github.com/buluma/ansible-role-haproxy/pull/44) ([buluma](https://github.com/buluma))
 
 ## [v2.3.8](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.8) (2022-02-13)
 
@@ -52,6 +56,7 @@
 
 **Merged pull requests:**
 
+- Testing [\#44](https://github.com/buluma/ansible-role-haproxy/pull/44) ([buluma](https://github.com/buluma))
 - Update .gitlab-ci.yml [\#43](https://github.com/buluma/ansible-role-haproxy/pull/43) ([buluma](https://github.com/buluma))
 
 ## [v2.3.7](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.7) (2022-02-01)
@@ -60,7 +65,7 @@
 
 ## [v2.3.6](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.6) (2022-02-01)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.5...v2.3.6)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.4...v2.3.6)
 
 **Fixed bugs:**
 
@@ -85,13 +90,13 @@
 - Build Failed [\#21](https://github.com/buluma/ansible-role-haproxy/issues/21)
 - Build Failed [\#20](https://github.com/buluma/ansible-role-haproxy/issues/20)
 
-## [v2.3.5](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.5) (2021-05-29)
-
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.4...v2.3.5)
-
 ## [v2.3.4](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.4) (2021-05-29)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v1.2...v2.3.4)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.5...v2.3.4)
+
+## [v2.3.5](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.5) (2021-05-29)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v1.2...v2.3.5)
 
 ## [v1.2](https://github.com/buluma/ansible-role-haproxy/tree/v1.2) (2021-04-18)
 
