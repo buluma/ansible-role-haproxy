@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Testing [\#54](https://github.com/buluma/ansible-role-haproxy/pull/54) ([buluma](https://github.com/buluma))
 - Bump buluma/gh-action-auto-merge-dependabot-updates from 1.0.4 to 1.0.5 [\#52](https://github.com/buluma/ansible-role-haproxy/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.3](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.3) (2022-04-24)
@@ -24,6 +25,10 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.0...v2.4.1)
 
+**Merged pull requests:**
+
+- Bump codacy/codacy-analysis-cli-action from 4.0.0 to 4.0.2 [\#49](https://github.com/buluma/ansible-role-haproxy/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.4.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.0) (2022-03-03)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.9...v2.4.0)
@@ -38,7 +43,6 @@
 
 **Merged pull requests:**
 
-- Bump codacy/codacy-analysis-cli-action from 4.0.0 to 4.0.2 [\#49](https://github.com/buluma/ansible-role-haproxy/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#45](https://github.com/buluma/ansible-role-haproxy/pull/45) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.3.8](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.8) (2022-02-13)
