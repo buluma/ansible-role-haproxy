@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Testing [\#54](https://github.com/buluma/ansible-role-haproxy/pull/54) ([buluma](https://github.com/buluma))
 - Bump buluma/gh-action-auto-merge-dependabot-updates from 1.0.4 to 1.0.5 [\#52](https://github.com/buluma/ansible-role-haproxy/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.3](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.3) (2022-04-24)
