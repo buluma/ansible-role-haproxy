@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.3...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.4...HEAD)
+
+**Merged pull requests:**
+
+- Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#56](https://github.com/buluma/ansible-role-haproxy/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v2.4.4](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.4) (2022-05-13)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.3...v2.4.4)
 
 **Merged pull requests:**
 
