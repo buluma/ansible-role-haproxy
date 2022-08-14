@@ -1,0 +1,10 @@
+---
+#
+# Ansible managed
+#
+argument_specs:
+  main:
+    short_description: Install and configure haproxy on your system.
+    description: >
+      Install and configure haproxy on your system.
+    author: Michael Buluma

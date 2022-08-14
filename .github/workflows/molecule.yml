@@ -6,11 +6,18 @@
 name: Ansible Molecule
 
 on:
-  # Schedule updates (once daily)
+  # Schedule updates (once weekly)
   schedule:
-    - cron: '15 8 * * *'
+    - cron: '15 8/1 * * 0,0'
   workflow_dispatch:
-  push: {branches: ["master", "main"]}
+  push:
+    branches:
+      - master
+      - main
+      - testing
+    paths-ignore:
+      - '**/README.md'
+      - '**/CHANGELOG.md'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -25,7 +32,7 @@ jobs:
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: buluma/molecule-action@v4.0.7
+        uses: buluma/molecule-action@v5.0.1
         with:
           command: lint
   test:
@@ -37,15 +44,15 @@ jobs:
       matrix:
         config:
           - image: "enterpriselinux"
-            tag: "latest"
+            tag: "8"
           - image: "debian-systemd"
             tag: "latest"
           - image: "debian-systemd"
             tag: "bookworm"
           - image: "fedora-systemd"
-            tag: "34"
-          - image: "fedora-systemd"
             tag: "35"
+          - image: "fedora-systemd"
+            tag: "34"
           - image: "fedora-systemd"
             tag: "latest"
           - image: "docker-opensuse-systemd"
@@ -53,11 +60,9 @@ jobs:
           - image: "docker-ubuntu-systemd"
             tag: "latest"
           - image: "docker-ubuntu-systemd"
-            tag: "bionic"
-          - image: "docker-ubuntu-systemd"
             tag: "focal"
           - image: "docker-ubuntu-systemd"
-            tag: "jammy"
+            tag: "bionic"
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -68,7 +73,7 @@ jobs:
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - name: molecule
-        uses: buluma/molecule-action@v4.0.7
+        uses: buluma/molecule-action@v5.0.1
         with:
           image: ${{ matrix.config.image }}
           tag: ${{ matrix.config.tag }}
