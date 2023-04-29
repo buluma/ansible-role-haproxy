@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.5...HEAD)
+
+**Merged pull requests:**
+
+- Bump codacy/codacy-analysis-cli-action from 4.0.2 to 4.3.0 [\#62](https://github.com/buluma/ansible-role-haproxy/pull/62) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.4.5](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.5) (2022-08-21)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.4...v2.4.5)
@@ -118,23 +126,19 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v1.1...v1.0)
 
-**Merged pull requests:**
-
-- Add .circleci/config.yml [\#19](https://github.com/buluma/ansible-role-haproxy/pull/19) ([buluma](https://github.com/buluma))
-
 ## [v1.1](https://github.com/buluma/ansible-role-haproxy/tree/v1.1) (2021-03-28)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/89a7829d021e17c6e0bcd6f672d22d56880dacc8...v1.1)
 
 **Merged pull requests:**
 
+- Add .circleci/config.yml [\#19](https://github.com/buluma/ansible-role-haproxy/pull/19) ([buluma](https://github.com/buluma))
 - update slack [\#18](https://github.com/buluma/ansible-role-haproxy/pull/18) ([buluma](https://github.com/buluma))
 - Update .codeclimate.yml [\#17](https://github.com/buluma/ansible-role-haproxy/pull/17) ([buluma](https://github.com/buluma))
 - Update Jenkinsfile [\#16](https://github.com/buluma/ansible-role-haproxy/pull/16) ([buluma](https://github.com/buluma))
 - Update Jenkinsfile [\#15](https://github.com/buluma/ansible-role-haproxy/pull/15) ([buluma](https://github.com/buluma))
 - Buluma jenkins [\#14](https://github.com/buluma/ansible-role-haproxy/pull/14) ([buluma](https://github.com/buluma))
 - add group: edge [\#13](https://github.com/buluma/ansible-role-haproxy/pull/13) ([buluma](https://github.com/buluma))
-- Rename jenkinsfile to Jenkinsfile [\#12](https://github.com/buluma/ansible-role-haproxy/pull/12) ([buluma](https://github.com/buluma))
 - Create jenkinsfile [\#11](https://github.com/buluma/ansible-role-haproxy/pull/11) ([buluma](https://github.com/buluma))
 - Add a Codacy badge to README.md [\#10](https://github.com/buluma/ansible-role-haproxy/pull/10) ([codacy-badger](https://github.com/codacy-badger))
 - disable checkmode [\#9](https://github.com/buluma/ansible-role-haproxy/pull/9) ([buluma](https://github.com/buluma))
