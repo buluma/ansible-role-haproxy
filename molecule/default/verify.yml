@@ -9,8 +9,6 @@
       ansible.builtin.package:
         name: socat
         state: present
-      notify:
-        - uninstall testing requirements
 
     - name: Check if ports responds
       ansible.builtin.wait_for:
