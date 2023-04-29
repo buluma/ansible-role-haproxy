@@ -30,7 +30,7 @@
     validate: haproxy -c -f %s
     mode: "0640"
   notify:
-    - restart haproxy
+    - Restart haproxy
   when:
     - ansible_default_ipv4 is defined
 
@@ -51,7 +51,7 @@
         state: yes
         persistent: yes
       notify:
-        - reboot
+        - Reboot
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
