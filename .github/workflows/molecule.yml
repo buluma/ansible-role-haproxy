@@ -6,10 +6,6 @@
 name: Ansible Molecule
 
 on:
-  # Schedule updates (once weekly)
-  schedule:
-    - cron: '15 8/9 * * 0,0'
-  workflow_dispatch:
   push:
     branches:
       - master
@@ -18,6 +14,11 @@ on:
     paths-ignore:
       - '**/README.md'
       - '**/CHANGELOG.md'
+    tags_ignore:
+      - '*'
+  pull_request:
+  schedule:
+    - cron: '15 8 8 * *'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -43,12 +44,10 @@ jobs:
             tag: "8"
           - image: "debian-systemd"
             tag: "latest"
-          - image: "debian-systemd"
-            tag: "buster"
           - image: "fedora-systemd"
-            tag: "35"
+            tag: "36"
           - image: "fedora-systemd"
-            tag: "34"
+            tag: "37"
           - image: "fedora-systemd"
             tag: "latest"
           - image: "docker-opensuse-systemd"
@@ -69,7 +68,7 @@ jobs:
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - name: molecule
-        uses: buluma/molecule-action@v5.0.4
+        uses: buluma/molecule-action@v5.0.7
         with:
           image: ${{ matrix.config.image }}
           tag: ${{ matrix.config.tag }}
