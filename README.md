@@ -2,9 +2,9 @@
 
 Install and configure haproxy on your system.
 
-|GitHub|GitLab|Quality|Downloads|Version|Issues|Pull Requests|
-|------|------|-------|---------|-------|------|-------------|
-|[![github](https://github.com/buluma/ansible-role-haproxy/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-haproxy/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-haproxy)|[![quality](https://img.shields.io/ansible/quality/54369)](https://galaxy.ansible.com/buluma/haproxy)|[![downloads](https://img.shields.io/ansible/role/d/54369)](https://galaxy.ansible.com/buluma/haproxy)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/pulls/)|
+|GitHub|GitLab|Downloads|Version|Issues|Pull Requests|
+|------|------|-------|-------|------|-------------|
+|[![github](https://github.com/buluma/ansible-role-haproxy/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-haproxy/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-haproxy/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-haproxy)|[![downloads](https://img.shields.io/ansible/role/d/4726)](https://galaxy.ansible.com/buluma/haproxy)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-haproxy.svg)](https://github.com/buluma/ansible-role-haproxy/pulls/)|
 
 ## [Example Playbook](#example-playbook)
 
