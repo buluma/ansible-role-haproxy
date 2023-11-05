@@ -126,13 +126,16 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v1.1...v1.0)
 
+**Merged pull requests:**
+
+- Add .circleci/config.yml [\#19](https://github.com/buluma/ansible-role-haproxy/pull/19) ([buluma](https://github.com/buluma))
+
 ## [v1.1](https://github.com/buluma/ansible-role-haproxy/tree/v1.1) (2021-03-28)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/89a7829d021e17c6e0bcd6f672d22d56880dacc8...v1.1)
 
 **Merged pull requests:**
 
-- Add .circleci/config.yml [\#19](https://github.com/buluma/ansible-role-haproxy/pull/19) ([buluma](https://github.com/buluma))
 - update slack [\#18](https://github.com/buluma/ansible-role-haproxy/pull/18) ([buluma](https://github.com/buluma))
 - Update .codeclimate.yml [\#17](https://github.com/buluma/ansible-role-haproxy/pull/17) ([buluma](https://github.com/buluma))
 - Update Jenkinsfile [\#16](https://github.com/buluma/ansible-role-haproxy/pull/16) ([buluma](https://github.com/buluma))
