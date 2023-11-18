@@ -9,8 +9,10 @@
       ansible.builtin.package:
         name: socat
         state: present
+      notify:
+        - Uninstall testing requirements
 
-    - name: Check if ports responds
+    - name: Check if port responds
       ansible.builtin.wait_for:
         port: "{{ item }}"
       loop:
@@ -23,18 +25,16 @@
         validate_certs: no
         status_code:
           - 200
-          - 403
       loop:
         - "http://localhost/"
         - "https://localhost/"
 
     - name: Check if stats are available
       ansible.builtin.shell:
-        cmd: echo "show stat" | socat unix-connect:/var/lib/haproxy/stats stdio
+        cmd: "echo 'show stat' | socat unix-connect:/var/lib/haproxy/stats stdio"
       changed_when: no
 
   handlers:
-
     - name: Uninstall testing requirements
       ansible.builtin.package:
         name: socat

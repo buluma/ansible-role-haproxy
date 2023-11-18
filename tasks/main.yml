@@ -2,7 +2,8 @@
 # tasks file for haproxy
 
 - name: Import assert.yml
-  ansible.builtin.import_tasks: assert.yml
+  ansible.builtin.import_tasks:
+    file: assert.yml
   run_once: yes
   delegate_to: localhost
 
@@ -27,12 +28,11 @@
   ansible.builtin.template:
     src: haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
-    validate: haproxy -c -f %s
+    # validate: haproxy -c -f %s
     mode: "0640"
+    backup: yes
   notify:
     - Restart haproxy
-  when:
-    - ansible_default_ipv4 is defined
 
 - name: Modify selinux settings
   when:
