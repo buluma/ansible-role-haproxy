@@ -40,6 +40,13 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
       haproxy_backends:
         - name: backend
           httpcheck: yes
+          # You can tell how the health check must be done.
+          # This requires haproxy version 2
+          # http_check:
+          #   send:
+          #     method: GET
+          #     uri: /health.html
+          #   expect: status 200
           balance: roundrobin
           # You can refer to hosts in an Ansible group.
           # The `ansible_default_ipv4` will be used as an address to connect to.
@@ -48,8 +55,8 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           options:
             - check
         - name: smtp
-          httpcheck: yes
-          balance: roundrobin
+          balance: leastconn
+          mode: tcp
           # You can also refer to a list of servers.
           servers:
             - name: first
@@ -59,8 +66,30 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
               address: "127.0.0.2"
               port: 25
           port: 25
+        - name: vault
+          mode: tcp
+          httpcheck: GET /v1/sys/health HTTP/1.1
+          servers: "{{ groups['all'] }}"
+          http_send_name_header: Host
+          port: 8200
           options:
             - check
+            - check-ssl
+            - ssl verify none
+
+      haproxy_listen_default_balance: roundrobin
+      haproxy_listens:
+        - name: listen
+          address: "*"
+          httpcheck: yes
+          listen_port: 8081
+          balance: roundrobin
+          # You can refer to hosts in an Ansible group.
+          # The `ansible_default_ipv4` will be used as an address to connect to.
+          servers: "{{ groups['all'] }}"
+          port: 8080
+          options:
+            - maxconn 100000
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-haproxy/blob/master/molecule/default/prepare.yml):
@@ -86,6 +115,24 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
     # This role is applied to serve as a mock "backend" server. See `molecule/default/verify.yml`.
     - role: buluma.httpd
       httpd_port: 8080
+
+  vars:
+    _httpd_data_directory:
+      default: /var/www/html
+      Alpine: /var/www/localhost/htdocs
+      Suse: /srv/www/htdocs
+
+    httpd_data_directory: "{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory['default'] ) }}"
+  post_tasks:
+    - name: Place health check
+      ansible.builtin.copy:
+        content: 'ok'
+        dest: "{{ httpd_data_directory }}/health.html"
+
+    - name: Place sample page
+      ansible.builtin.copy:
+        content: 'Hello world!'
+        dest: "{{ httpd_data_directory }}/index.html"
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -101,6 +148,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 # Configure stats in HAProxy?
 haproxy_stats: yes
 haproxy_stats_port: 1936
+haproxy_stats_bind_addr: "0.0.0.0"
 
 # Default setttings for HAProxy.
 haproxy_retries: 3
@@ -111,6 +159,15 @@ haproxy_timeout_server: 1m
 haproxy_timeout_http_keep_alive: 10s
 haproxy_timeout_check: 10s
 haproxy_maxconn: 3000
+
+# A list of frontends. See `molecule/
+haproxy_frontends: []
+haproxy_backend_default_balance: roundrobin
+haproxy_backends: []
+
+# For the listening lists:
+haproxy_listen_default_balance: roundrobin
+haproxy_listens: []
 ```
 
 ## [Requirements](#requirements)
@@ -145,7 +202,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 
 |container|tags|
 |---------|----|
-|[EL](https://hub.docker.com/repository/docker/buluma/enterpriselinux/general)|8|
+|[EL](https://hub.docker.com/repository/docker/buluma/enterpriselinux/general)|8, 9|
 |[Debian](https://hub.docker.com/repository/docker/buluma/debian/general)|all|
 |[Fedora](https://hub.docker.com/repository/docker/buluma/fedora/general)|all|
 |[opensuse](https://hub.docker.com/repository/docker/buluma/opensuse/general)|all|

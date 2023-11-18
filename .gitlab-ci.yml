@@ -1,5 +1,5 @@
 ---
-image: "buluma/github-action-molecule:5.0.9"
+image: "buluma/github-action-molecule:5.1.1"
 
 variables:
   PY_COLORS: 1
@@ -14,6 +14,8 @@ molecule:
     matrix:
       - image: "enterpriselinux"
         tag: "8"
+      - image: "enterpriselinux"
+        tag: "latest"
       - image: "debian-systemd"
         tag: "latest"
       - image: "debian-systemd"
