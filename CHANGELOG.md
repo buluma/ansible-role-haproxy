@@ -4,6 +4,11 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.5...HEAD)
 
+**Closed issues:**
+
+- Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#69](https://github.com/buluma/ansible-role-haproxy/issues/69)
+- Update action [\#68](https://github.com/buluma/ansible-role-haproxy/issues/68)
+
 **Merged pull requests:**
 
 - Bump codacy/codacy-analysis-cli-action from 4.0.2 to 4.3.0 [\#62](https://github.com/buluma/ansible-role-haproxy/pull/62) ([dependabot[bot]](https://github.com/apps/dependabot))
