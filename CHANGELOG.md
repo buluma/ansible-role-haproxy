@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.5...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.6...HEAD)
+
+**Merged pull requests:**
+
+- Bump requests from 2.28.1 to 2.31.0 [\#67](https://github.com/buluma/ansible-role-haproxy/pull/67) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v2.4.6](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.6) (2023-11-18)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.5...v2.4.6)
 
 **Closed issues:**
 
