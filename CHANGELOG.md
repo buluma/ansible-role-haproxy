@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump alstr/todo-to-issue-action from 2.3 to 4.11 [\#75](https://github.com/buluma/ansible-role-haproxy/pull/75) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump requests from 2.28.1 to 2.31.0 [\#67](https://github.com/buluma/ansible-role-haproxy/pull/67) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.6](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.6) (2023-11-18)
