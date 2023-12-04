@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.7...HEAD)
+
+**Closed issues:**
+
+- Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#73](https://github.com/buluma/ansible-role-haproxy/issues/73)
+
 ## [v2.4.7](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.7) (2023-11-20)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.6...v2.4.7)
