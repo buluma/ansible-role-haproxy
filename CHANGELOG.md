@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.5.0...HEAD)
+
+**Merged pull requests:**
+
+- Bump actions/checkout from 3 to 4 [\#79](https://github.com/buluma/ansible-role-haproxy/pull/79) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.5.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.5.0) (2024-01-02)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.10...v2.5.0)
