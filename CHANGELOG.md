@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
+## [v2.6.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.6.0) (2024-01-10)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.5.0...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.5.0...v2.6.0)
 
 **Merged pull requests:**
 
