@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.5.0...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.6.0...HEAD)
+
+**Merged pull requests:**
+
+- Bump buluma/molecule-action from 6.0.0 to 6.0.1 [\#82](https://github.com/buluma/ansible-role-haproxy/pull/82) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v2.6.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.6.0) (2024-01-10)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.5.0...v2.6.0)
 
 **Merged pull requests:**
 
