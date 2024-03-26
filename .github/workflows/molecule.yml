@@ -50,27 +50,33 @@ jobs:
             tag: "8"
           - image: "enterpriselinux"
             tag: "latest"
-          - image: "debian-systemd"
-            tag: "latest"
-          - image: "debian-systemd"
+          - image: "docker-molecule-images"
+            tag: "buster"
+          - image: "docker-molecule-images"
             tag: "bullseye"
-          - image: "fedora-systemd"
+          - image: "docker-molecule-images"
+            tag: "37"
+          - image: "docker-molecule-images"
             tag: "38"
-          - image: "fedora-systemd"
-            tag: "latest"
-          - image: "fedora-systemd"
+          - image: "docker-molecule-images"
+            tag: "39"
+          - image: "docker-molecule-images"
+            tag: "40"
+          - image: "docker-molecule-images"
             tag: "rawhide"
-          - image: "docker-opensuse-systemd"
-            tag: "latest"
-          - image: "docker-ubuntu-systemd"
-            tag: "latest"
-          - image: "docker-ubuntu-systemd"
+          - image: "docker-molecule-images"
+            tag: "opensuse"
+          - image: "docker-molecule-images"
+            tag: "ubuntu_latest"
+          - image: "docker-molecule-images"
             tag: "focal"
-          - image: "docker-ubuntu-systemd"
+          - image: "docker-molecule-images"
             tag: "bionic"
-          - image: "docker-ubuntu-systemd"
+          - image: "docker-molecule-images"
+            tag: "jammy"
+          - image: "docker-molecule-images"
             tag: "lunar"
-          - image: "docker-ubuntu-systemd"
+          - image: "docker-molecule-images"
             tag: "noble"
     steps:
       - name: Checkout Role
@@ -106,3 +112,13 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # test_role:
+  #   needs:
+  #     - lint
+  #     - test
+  #   runs-on: ubuntu-20.04
+  #
+  #   steps:
+  #     - uses: "actions/checkout@master"
+  #     - name: Test Role
+  #       run: "ansible-galaxy role import --api-key {{ secrets.galaxy_api_key }} buluma {{ role_name }}"
