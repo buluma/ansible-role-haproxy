@@ -23,7 +23,9 @@ galaxy_info:
         - all
     - name: Ubuntu
       versions:
-        - all
+        - jammy
+        - focal
+        - bionic
 
   galaxy_tags:
     - cloud

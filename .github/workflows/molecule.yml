@@ -67,15 +67,11 @@ jobs:
           - image: "docker-molecule-images"
             tag: "opensuse"
           - image: "docker-molecule-images"
+            tag: "jammy"
+          - image: "docker-molecule-images"
             tag: "focal"
           - image: "docker-molecule-images"
             tag: "bionic"
-          - image: "docker-molecule-images"
-            tag: "jammy"
-          - image: "docker-molecule-images"
-            tag: "lunar"
-          - image: "docker-molecule-images"
-            tag: "noble"
     steps:
       - name: Checkout Role
         uses: actions/checkout@v4
