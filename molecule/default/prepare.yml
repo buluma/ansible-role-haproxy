@@ -9,7 +9,7 @@
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
-    - role: buluma.python_pip
+    # - role: buluma.python_pip
     - role: buluma.openssl
       openssl_key_directory: /tmp
       openssl_items:
