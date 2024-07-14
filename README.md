@@ -204,9 +204,9 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 |---------|----|
 |[EL](https://hub.docker.com/r/buluma/enterpriselinux)|8, 9|
 |[Debian](https://hub.docker.com/r/buluma/debian)|all|
-|[Fedora](https://hub.docker.com/r/buluma/fedora)|all|
+|[Fedora](https://hub.docker.com/r/buluma/fedora)|38, 39, 40|
 |[opensuse](https://hub.docker.com/r/buluma/opensuse)|all|
-|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|jammy, focal, bionic|
+|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|jammy, focal, bionic, lunar, noble|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
 
