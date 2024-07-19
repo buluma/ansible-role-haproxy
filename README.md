@@ -117,6 +117,7 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
       httpd_port: 8080
 
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     _httpd_data_directory:
       default: /var/www/html
       Alpine: /var/www/localhost/htdocs
