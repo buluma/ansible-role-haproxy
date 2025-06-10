@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump docker/login-action from 3.2.0 to 3.3.0 [\#91](https://github.com/buluma/ansible-role-haproxy/pull/91) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump requests from 2.28.1 to 2.32.2 [\#90](https://github.com/buluma/ansible-role-haproxy/pull/90) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v24.3.31](https://github.com/buluma/ansible-role-haproxy/tree/v24.3.31) (2024-03-28)
