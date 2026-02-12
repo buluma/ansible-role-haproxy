@@ -1,38 +1,28 @@
----
 galaxy_info:
   author: buluma
   role_name: haproxy
   description: Install and configure haproxy on your system.
   license: Apache-2.0
   company: ShadowNet
-  min_ansible_version: "2.12"
-
+  min_ansible_version: '2.12'
   platforms:
-    - name: EL
-      versions:
-        - "8"
-        - "9"
-    - name: Debian
-      versions:
-        - all
-    - name: Fedora
-      versions:
-        - "38"
-        - "39"
-        - "40"
-    - name: opensuse
-      versions:
-        - all
-    - name: Ubuntu
-      versions:
-        - jammy
-        - focal
-        - bionic
-        - noble
-
+  - name: EL
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: opensuse
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
   galaxy_tags:
-    - cloud
-    - haproxy
-    - networking
-
+  - cloud
+  - haproxy
+  - networking
 dependencies: []
