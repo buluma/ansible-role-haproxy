@@ -129,11 +129,17 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
       ansible.builtin.copy:
         content: 'ok'
         dest: "{{ httpd_data_directory }}/health.html"
+        mode: '0644'
+        owner: root
+        group: root
 
     - name: Place sample page
       ansible.builtin.copy:
         content: 'Hello world!'
         dest: "{{ httpd_data_directory }}/index.html"
+        mode: '0644'
+        owner: root
+        group: root
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
