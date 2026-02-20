@@ -32,8 +32,14 @@
       ansible.builtin.copy:
         content: 'ok'
         dest: "{{ httpd_data_directory }}/health.html"
+        mode: '0644'
+        owner: root
+        group: root
 
     - name: Place sample page
       ansible.builtin.copy:
         content: 'Hello world!'
         dest: "{{ httpd_data_directory }}/index.html"
+        mode: '0644'
+        owner: root
+        group: root
