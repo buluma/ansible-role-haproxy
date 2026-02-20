@@ -41,8 +41,6 @@ jobs:
       matrix:
         distro:
           - image: "enterpriselinux"
-            tag: "8"
-          - image: "enterpriselinux"
             tag: "latest"
           - image: "docker-molecule-images"
             tag: "debian_latest"

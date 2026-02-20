@@ -165,7 +165,6 @@ haproxy_maxconn: 3000
 haproxy_frontends: []
 haproxy_backend_default_balance: roundrobin
 haproxy_backends: []
-
 # For the listening lists:
 haproxy_listen_default_balance: roundrobin
 haproxy_listens: []
