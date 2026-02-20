@@ -1,5 +1,5 @@
 ---
-version: "2"         # required to adjust maintainability checks
+version: "2" # required to adjust maintainability checks
 
 checks:
   argument-count:
@@ -37,11 +37,11 @@ checks:
   similar-code:
     enabled: true
     config:
-      threshold:  # language-specific defaults. overrides affect all languages.
+      threshold: # language-specific defaults. overrides affect all languages.
   identical-code:
     enabled: true
     config:
-      threshold:  # language-specific defaults. overrides affect all languages.
+      threshold: # language-specific defaults. overrides affect all languages.
 
 # plugins:
 #   eslint:

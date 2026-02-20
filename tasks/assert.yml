@@ -1,5 +1,4 @@
 ---
-
 - name: assert | Test haproxy_stats
   ansible.builtin.assert:
     that:
@@ -129,10 +128,8 @@
       - item.name is defined
       - item.name is string
       - item.name is not none
-      - (item.balance is defined
-        and item.balance is string
-        and item.balance in [ "roundrobin", "static-rr", "leastconn", "first", "source", "uri", "url_param", "hdr", "rdp-cookie" ])
-        or item.balance is undefined
+      - (item.balance is defined and item.balance is string and item.balance in [ "roundrobin", "static-rr", "leastconn", "first", "source", "uri", "url_param",
+        "hdr", "rdp-cookie" ]) or item.balance is undefined
       - item.servers is defined
       - item.servers is iterable
       - item.port is defined
@@ -160,8 +157,7 @@
 - name: assert | Test httpcheck item in haproxy_backends
   ansible.builtin.assert:
     that:
-      - item.httpcheck is boolean
-        or item.httpcheck is string
+      - item.httpcheck is boolean or item.httpcheck is string
     quiet: true
   loop: "{{ haproxy_backends }}"
   loop_control:
@@ -236,10 +232,8 @@
       - item.address is defined
       - item.address is string
       - item.address is not none
-      - (item.balance is defined
-        and item.balance is string
-        and item.balance in [ "roundrobin", "static-rr", "leastconn", "first", "source", "uri", "url_param", "hdr", "rdp-cookie" ])
-        or item.balance is undefined
+      - (item.balance is defined and item.balance is string and item.balance in [ "roundrobin", "static-rr", "leastconn", "first", "source", "uri", "url_param",
+        "hdr", "rdp-cookie" ]) or item.balance is undefined
       - item.listen_port is defined
       - item.listen_port is number
       - item.listen_port > 0
