@@ -1,45 +1,40 @@
----
-- name: Prepare
-  hosts: all
-  become: true
+- become: true
   gather_facts: false
-
+  hosts: all
+  name: Prepare
+  post_tasks:
+  - ansible.builtin.copy:
+      content: ok
+      dest: '{{ httpd_data_directory }}/health.html'
+      group: root
+      mode: '0644'
+      owner: root
+    name: Place health check
+  - ansible.builtin.copy:
+      content: Hello world!
+      dest: '{{ httpd_data_directory }}/index.html'
+      group: root
+      mode: '0644'
+      owner: root
+    name: Place sample page
   roles:
-    - role: buluma.bootstrap
-    - role: buluma.core_dependencies
-    - role: buluma.epel
-    - role: buluma.buildtools
-    - role: buluma.python_pip
-    - role: buluma.openssl
-      openssl_key_directory: /tmp
-      openssl_items:
-        - name: haproxy
-          common_name: "{{ ansible_fqdn }}"
-    # This role is applied to serve as a mock "backend" server. See `molecule/default/verify.yml`.
-    - role: buluma.httpd
-      httpd_port: 8080
-
+  - role: buluma.bootstrap
+  - role: buluma.core_dependencies
+  - role: buluma.epel
+  - role: buluma.buildtools
+  - role: buluma.python_pip
+  - openssl_items:
+    - common_name: '{{ ansible_fqdn }}'
+      name: haproxy
+    openssl_key_directory: /tmp
+    role: buluma.openssl
+  - httpd_port: 8080
+    role: buluma.httpd
   vars:
-    ansible_python_interpreter: /usr/bin/python3
     _httpd_data_directory:
-      default: /var/www/html
       Alpine: /var/www/localhost/htdocs
       Suse: /srv/www/htdocs
-
-    httpd_data_directory: "{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory['default'] ) }}"
-  post_tasks:
-    - name: Place health check
-      ansible.builtin.copy:
-        content: 'ok'
-        dest: "{{ httpd_data_directory }}/health.html"
-        mode: '0644'
-        owner: root
-        group: root
-
-    - name: Place sample page
-      ansible.builtin.copy:
-        content: 'Hello world!'
-        dest: "{{ httpd_data_directory }}/index.html"
-        mode: '0644'
-        owner: root
-        group: root
+      default: /var/www/html
+    ansible_python_interpreter: /usr/bin/python3
+    httpd_data_directory: '{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory[''default'']
+      ) }}'

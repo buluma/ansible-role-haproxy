@@ -11,135 +11,115 @@ Install and configure haproxy on your system.
 This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-haproxy/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
----
-- name: Converge
-  hosts: all
-  become: true
+- become: true
   gather_facts: true
-
+  hosts: all
+  name: Converge
   roles:
-    - role: buluma.haproxy
-      haproxy_frontends:
-        - name: http
-          address: "*"
-          port: 80
-          default_backend: backend
-        - name: https
-          address: "*"
-          port: 443
-          default_backend: backend
-          ssl: true
-          crts:
-            - /tmp/haproxy.keycrt
-        - name: smtp
-          address: "*"
-          port: 25
-          default_backend: smtp
-          mode: tcp
-      haproxy_backend_default_balance: roundrobin
-      haproxy_backends:
-        - name: backend
-          httpcheck: true
-          # You can tell how the health check must be done.
-          # This requires haproxy version 2
-          # http_check:
-          #   send:
-          #     method: GET
-          #     uri: /health.html
-          #   expect: status 200
-          balance: roundrobin
-          # You can refer to hosts in an Ansible group.
-          # The `ansible_default_ipv4` will be used as an address to connect to.
-          servers: "{{ groups['all'] }}"
-          port: 8080
-          options:
-            - check
-        - name: smtp
-          balance: leastconn
-          mode: tcp
-          # You can also refer to a list of servers.
-          servers:
-            - name: first
-              address: "127.0.0.1"
-              port: 25
-            - name: second
-              address: "127.0.0.2"
-              port: 25
-          port: 25
-        - name: vault
-          mode: tcp
-          httpcheck: GET /v1/sys/health HTTP/1.1
-          servers: "{{ groups['all'] }}"
-          http_send_name_header: Host
-          port: 8200
-          options:
-            - check
-            - check-ssl
-            - ssl verify none
-
-      haproxy_listen_default_balance: roundrobin
-      haproxy_listens:
-        - name: listen
-          address: "*"
-          httpcheck: true
-          listen_port: 8081
-          balance: roundrobin
-          # You can refer to hosts in an Ansible group.
-          # The `ansible_default_ipv4` will be used as an address to connect to.
-          servers: "{{ groups['all'] }}"
-          port: 8080
-          options:
-            - maxconn 100000
+  - haproxy_backend_default_balance: roundrobin
+    haproxy_backends:
+    - balance: roundrobin
+      httpcheck: true
+      name: backend
+      options:
+      - check
+      port: 8080
+      servers: '{{ groups[''all''] }}'
+    - balance: leastconn
+      mode: tcp
+      name: smtp
+      port: 25
+      servers:
+      - address: 127.0.0.1
+        name: first
+        port: 25
+      - address: 127.0.0.2
+        name: second
+        port: 25
+    - http_send_name_header: Host
+      httpcheck: GET /v1/sys/health HTTP/1.1
+      mode: tcp
+      name: vault
+      options:
+      - check
+      - check-ssl
+      - ssl verify none
+      port: 8200
+      servers: '{{ groups[''all''] }}'
+    haproxy_frontends:
+    - address: '*'
+      default_backend: backend
+      name: http
+      port: 80
+    - address: '*'
+      crts:
+      - /tmp/haproxy.keycrt
+      default_backend: backend
+      name: https
+      port: 443
+      ssl: true
+    - address: '*'
+      default_backend: smtp
+      mode: tcp
+      name: smtp
+      port: 25
+    haproxy_listen_default_balance: roundrobin
+    haproxy_listens:
+    - address: '*'
+      balance: roundrobin
+      httpcheck: true
+      listen_port: 8081
+      name: listen
+      options:
+      - maxconn 100000
+      port: 8080
+      servers: '{{ groups[''all''] }}'
+    role: buluma.haproxy
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-haproxy/blob/master/molecule/default/prepare.yml):
 
 ```yaml
----
-- name: Prepare
-  hosts: all
-  become: true
+- become: true
   gather_facts: false
-
+  hosts: all
+  name: Prepare
+  post_tasks:
+  - ansible.builtin.copy:
+      content: ok
+      dest: '{{ httpd_data_directory }}/health.html'
+      group: root
+      mode: '0644'
+      owner: root
+    name: Place health check
+  - ansible.builtin.copy:
+      content: Hello world!
+      dest: '{{ httpd_data_directory }}/index.html'
+      group: root
+      mode: '0644'
+      owner: root
+    name: Place sample page
   roles:
-    - role: buluma.bootstrap
-    - role: buluma.core_dependencies
-    - role: buluma.epel
-    - role: buluma.buildtools
-    - role: buluma.python_pip
-    - role: buluma.openssl
-      openssl_key_directory: /tmp
-      openssl_items:
-        - name: haproxy
-          common_name: "{{ ansible_fqdn }}"
-    # This role is applied to serve as a mock "backend" server. See `molecule/default/verify.yml`.
-    - role: buluma.httpd
-      httpd_port: 8080
-
+  - role: buluma.bootstrap
+  - role: buluma.core_dependencies
+  - role: buluma.epel
+  - role: buluma.buildtools
+  - role: buluma.python_pip
+  - openssl_items:
+    - common_name: '{{ ansible_fqdn }}'
+      name: haproxy
+    openssl_key_directory: /tmp
+    role: buluma.openssl
+  - httpd_port: 8080
+    role: buluma.httpd
   vars:
-    ansible_python_interpreter: /usr/bin/python3
     _httpd_data_directory:
-      default: /var/www/html
       Alpine: /var/www/localhost/htdocs
       Suse: /srv/www/htdocs
-
-    httpd_data_directory: "{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory['default'] ) }}"
-  post_tasks:
-    - name: Place health check
-      ansible.builtin.copy:
-        content: 'ok'
-        dest: "{{ httpd_data_directory }}/health.html"
-        mode: '0644'
-        owner: root
-        group: root
-
-    - name: Place sample page
-      ansible.builtin.copy:
-        content: 'Hello world!'
-        dest: "{{ httpd_data_directory }}/index.html"
-        mode: '0644'
-        owner: root
-        group: root
+      default: /var/www/html
+    ansible_python_interpreter: /usr/bin/python3
+    httpd_data_directory: '{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory[''default'']
+      ) }}'
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -149,31 +129,22 @@ Also see a [full explanation and example](https://buluma.github.io/how-to-use-th
 The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-haproxy/blob/master/defaults/main.yml):
 
 ```yaml
----
-# defaults file for haproxy
-
-# Configure stats in HAProxy?
-haproxy_stats: true
-haproxy_stats_port: 1936
-haproxy_stats_bind_addr: "0.0.0.0"
-
-# Default setttings for HAProxy.
-haproxy_retries: 3
-haproxy_timeout_http_request: 10s
-haproxy_timeout_connect: 10s
-haproxy_timeout_client: 1m
-haproxy_timeout_server: 1m
-haproxy_timeout_http_keep_alive: 10s
-haproxy_timeout_check: 10s
-haproxy_maxconn: 3000
-
-# A list of frontends. See `molecule/
-haproxy_frontends: []
 haproxy_backend_default_balance: roundrobin
 haproxy_backends: []
-# For the listening lists:
+haproxy_frontends: []
 haproxy_listen_default_balance: roundrobin
 haproxy_listens: []
+haproxy_maxconn: 3000
+haproxy_retries: 3
+haproxy_stats: true
+haproxy_stats_bind_addr: 0.0.0.0
+haproxy_stats_port: 1936
+haproxy_timeout_check: 10s
+haproxy_timeout_client: 1m
+haproxy_timeout_connect: 10s
+haproxy_timeout_http_keep_alive: 10s
+haproxy_timeout_http_request: 10s
+haproxy_timeout_server: 1m
 ```
 
 ## [Requirements](#requirements)

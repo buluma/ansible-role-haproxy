@@ -1,5 +1,1 @@
----
-#
-# Ansible managed
-#
 tox_parallel: true
