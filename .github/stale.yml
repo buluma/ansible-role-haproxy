@@ -3,9 +3,9 @@ daysUntilClose: 30
 daysUntilStale: 90
 exemptAssignees: false
 exemptLabels:
-  - pinned
-  - security
-  - planned
+- pinned
+- security
+- planned
 exemptMilestones: false
 exemptProjects: false
 issues:
