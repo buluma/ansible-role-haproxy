@@ -1,64 +1,65 @@
-- become: true
-  gather_facts: true
-  hosts: all
-  name: Converge
-  roles:
-  - haproxy_backend_default_balance: roundrobin
-    haproxy_backends:
-    - balance: roundrobin
-      httpcheck: true
-      name: backend
-      options:
-      - check
-      port: 8080
-      servers: '{{ groups[''all''] }}'
-    - balance: leastconn
-      mode: tcp
-      name: smtp
-      port: 25
-      servers:
-      - address: 127.0.0.1
-        name: first
-        port: 25
-      - address: 127.0.0.2
-        name: second
-        port: 25
-    - http_send_name_header: Host
-      httpcheck: GET /v1/sys/health HTTP/1.1
-      mode: tcp
-      name: vault
-      options:
-      - check
-      - check-ssl
-      - ssl verify none
-      port: 8200
-      servers: '{{ groups[''all''] }}'
-    haproxy_frontends:
-    - address: '*'
-      default_backend: backend
-      name: http
-      port: 80
-    - address: '*'
-      crts:
-      - /tmp/haproxy.keycrt
-      default_backend: backend
-      name: https
-      port: 443
-      ssl: true
-    - address: '*'
-      default_backend: smtp
-      mode: tcp
-      name: smtp
-      port: 25
-    haproxy_listen_default_balance: roundrobin
-    haproxy_listens:
-    - address: '*'
-      balance: roundrobin
-      httpcheck: true
-      listen_port: 8081
-      name: listen
-      options:
-      - maxconn 100000
-      port: 8080
-      servers: '{{ groups[''all''] }}'
-    role: buluma.haproxy
+---
+  - become: true
+    gather_facts: true
+    hosts: all
+    name: Converge
+    roles:
+      - haproxy_backend_default_balance: roundrobin
+        haproxy_backends:
+          - balance: roundrobin
+            httpcheck: true
+            name: backend
+            options:
+              - check
+            port: 8080
+            servers: '{{ groups[''all''] }}'
+          - balance: leastconn
+            mode: tcp
+            name: smtp
+            port: 25
+            servers:
+              - address: 127.0.0.1
+                name: first
+                port: 25
+              - address: 127.0.0.2
+                name: second
+                port: 25
+          - http_send_name_header: Host
+            httpcheck: GET /v1/sys/health HTTP/1.1
+            mode: tcp
+            name: vault
+            options:
+              - check
+              - check-ssl
+              - ssl verify none
+            port: 8200
+            servers: '{{ groups[''all''] }}'
+        haproxy_frontends:
+          - address: '*'
+            default_backend: backend
+            name: http
+            port: 80
+          - address: '*'
+            crts:
+              - /tmp/haproxy.keycrt
+            default_backend: backend
+            name: https
+            port: 443
+            ssl: true
+          - address: '*'
+            default_backend: smtp
+            mode: tcp
+            name: smtp
+            port: 25
+        haproxy_listen_default_balance: roundrobin
+        haproxy_listens:
+          - address: '*'
+            balance: roundrobin
+            httpcheck: true
+            listen_port: 8081
+            name: listen
+            options:
+              - maxconn 100000
+            port: 8080
+            servers: '{{ groups[''all''] }}'
+        role: buluma.haproxy

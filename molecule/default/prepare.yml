@@ -1,40 +1,41 @@
-- become: true
-  gather_facts: false
-  hosts: all
-  name: Prepare
-  post_tasks:
-  - ansible.builtin.copy:
-      content: ok
-      dest: '{{ httpd_data_directory }}/health.html'
-      group: root
-      mode: '0644'
-      owner: root
-    name: Place health check
-  - ansible.builtin.copy:
-      content: Hello world!
-      dest: '{{ httpd_data_directory }}/index.html'
-      group: root
-      mode: '0644'
-      owner: root
-    name: Place sample page
-  roles:
-  - role: buluma.bootstrap
-  - role: buluma.core_dependencies
-  - role: buluma.epel
-  - role: buluma.buildtools
-  - role: buluma.python_pip
-  - openssl_items:
-    - common_name: '{{ ansible_fqdn }}'
-      name: haproxy
-    openssl_key_directory: /tmp
-    role: buluma.openssl
-  - httpd_port: 8080
-    role: buluma.httpd
-  vars:
-    _httpd_data_directory:
-      Alpine: /var/www/localhost/htdocs
-      Suse: /srv/www/htdocs
-      default: /var/www/html
-    ansible_python_interpreter: /usr/bin/python3
-    httpd_data_directory: '{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory[''default'']
-      ) }}'
+---
+  - become: true
+    gather_facts: false
+    hosts: all
+    name: Prepare
+    post_tasks:
+      - ansible.builtin.copy:
+          content: ok
+          dest: '{{ httpd_data_directory }}/health.html'
+          group: root
+          mode: '0644'
+          owner: root
+        name: Place health check
+      - ansible.builtin.copy:
+          content: Hello world!
+          dest: '{{ httpd_data_directory }}/index.html'
+          group: root
+          mode: '0644'
+          owner: root
+        name: Place sample page
+    roles:
+      - role: buluma.bootstrap
+      - role: buluma.core_dependencies
+      - role: buluma.epel
+      - role: buluma.buildtools
+      - role: buluma.python_pip
+      - openssl_items:
+          - common_name: '{{ ansible_fqdn }}'
+            name: haproxy
+        openssl_key_directory: /tmp
+        role: buluma.openssl
+      - httpd_port: 8080
+        role: buluma.httpd
+    vars:
+      _httpd_data_directory:
+        Alpine: /var/www/localhost/htdocs
+        Suse: /srv/www/htdocs
+        default: /var/www/html
+      ansible_python_interpreter: /usr/bin/python3
+      httpd_data_directory: '{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory[''default'']
+        ) }}'
