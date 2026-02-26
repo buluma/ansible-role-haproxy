@@ -1,39 +1,31 @@
 ---
-# tasks file for haproxy
-
 - name: Import assert.yml
   ansible.builtin.import_tasks:
     file: assert.yml
-  run_once: true
   delegate_to: localhost
-
+  run_once: true
 - name: Install haproxy
   ansible.builtin.package:
     name: haproxy
     state: present
-
 - name: Create group
   ansible.builtin.group:
     name: haproxy
-    system: true
     state: present
-
+    system: true
 - name: Create user
   ansible.builtin.user:
     name: haproxy
-    system: true
     state: present
-
+    system: true
 - name: Configure software
   ansible.builtin.template:
-    src: haproxy.cfg.j2
-    dest: /etc/haproxy/haproxy.cfg
-    # validate: haproxy -c -f %s
-    mode: "0640"
     backup: true
+    dest: /etc/haproxy/haproxy.cfg
+    mode: "0640"
+    src: haproxy.cfg.j2
   notify:
     - Restart haproxy
-
 - name: Modify selinux settings
   when:
     - ansible_selinux.status is defined
@@ -47,20 +39,17 @@
         state: present
       when:
         - haproxy_stats_port is defined
-
     - name: Allow haproxy to open any port
       ansible.posix.seboolean:
         name: haproxy_connect_any
-        state: true
         persistent: true
+        state: true
       notify:
         - Reboot
-
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
-
 - name: Start and enable haproxy
   ansible.builtin.service:
+    enabled: true
     name: haproxy
     state: started
-    enabled: true
