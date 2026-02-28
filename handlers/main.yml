@@ -1,9 +1,6 @@
 ---
-# handlers file for haproxy
-
 - name: Reboot
   ansible.builtin.reboot:
-
 - name: Restart haproxy
   ansible.builtin.service:
     name: haproxy

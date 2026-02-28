@@ -1,79 +1,65 @@
 ---
-- name: Converge
-  hosts: all
-  become: true
+- become: true
   gather_facts: true
-
+  hosts: all
+  name: Converge
   roles:
-    - role: ansible-role-haproxy
-      haproxy_frontends:
-        - name: http
-          address: "*"
-          port: 80
-          default_backend: backend
-        - name: https
-          address: "*"
-          port: 443
-          default_backend: backend
-          ssl: true
-          crts:
-            - /tmp/haproxy.keycrt
-        - name: smtp
-          address: "*"
-          port: 25
-          default_backend: smtp
-          mode: tcp
-      haproxy_backend_default_balance: roundrobin
-      haproxy_backends:
-        - name: backend
-          httpcheck: true
-          # You can tell how the health check must be done.
-          # This requires haproxy version 2
-          # http_check:
-          #   send:
-          #     method: GET
-          #     uri: /health.html
-          #   expect: status 200
-          balance: roundrobin
-          # You can refer to hosts in an Ansible group.
-          # The `ansible_default_ipv4` will be used as an address to connect to.
-          servers: "{{ groups['all'] }}"
-          port: 8080
-          options:
-            - check
-        - name: smtp
-          balance: leastconn
-          mode: tcp
-          # You can also refer to a list of servers.
-          servers:
-            - name: first
-              address: "127.0.0.1"
-              port: 25
-            - name: second
-              address: "127.0.0.2"
-              port: 25
-          port: 25
-        - name: vault
-          mode: tcp
-          httpcheck: GET /v1/sys/health HTTP/1.1
-          servers: "{{ groups['all'] }}"
-          http_send_name_header: Host
-          port: 8200
-          options:
-            - check
-            - check-ssl
-            - ssl verify none
-
-      haproxy_listen_default_balance: roundrobin
-      haproxy_listens:
-        - name: listen
-          address: "*"
-          httpcheck: true
-          listen_port: 8081
-          balance: roundrobin
-          # You can refer to hosts in an Ansible group.
-          # The `ansible_default_ipv4` will be used as an address to connect to.
-          servers: "{{ groups['all'] }}"
-          port: 8080
-          options:
-            - maxconn 100000
+  - haproxy_backend_default_balance: roundrobin
+    haproxy_backends:
+    - balance: roundrobin
+      httpcheck: true
+      name: backend
+      options:
+      - check
+      port: 8080
+      servers: '{{ groups[''all''] }}'
+    - balance: leastconn
+      mode: tcp
+      name: smtp
+      port: 25
+      servers:
+      - address: 127.0.0.1
+        name: first
+        port: 25
+      - address: 127.0.0.2
+        name: second
+        port: 25
+    - http_send_name_header: Host
+      httpcheck: GET /v1/sys/health HTTP/1.1
+      mode: tcp
+      name: vault
+      options:
+      - check
+      - check-ssl
+      - ssl verify none
+      port: 8200
+      servers: '{{ groups[''all''] }}'
+    haproxy_frontends:
+    - address: '*'
+      default_backend: backend
+      name: http
+      port: 80
+    - address: '*'
+      crts:
+      - /tmp/haproxy.keycrt
+      default_backend: backend
+      name: https
+      port: 443
+      ssl: true
+    - address: '*'
+      default_backend: smtp
+      mode: tcp
+      name: smtp
+      port: 25
+    haproxy_listen_default_balance: roundrobin
+    haproxy_listens:
+    - address: '*'
+      balance: roundrobin
+      httpcheck: true
+      listen_port: 8081
+      name: listen
+      options:
+      - maxconn 100000
+      port: 8080
+      servers: '{{ groups[''all''] }}'
+    role: buluma.haproxy
