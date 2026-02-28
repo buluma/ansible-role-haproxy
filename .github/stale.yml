@@ -9,8 +9,8 @@ exemptLabels:
 exemptMilestones: false
 exemptProjects: false
 issues:
-  closeComment: This issue has been closed due to inactivity. If you feel this 
-    is in error, please reopen the issue or file a new issue with the relevant 
+  closeComment: This issue has been closed due to inactivity. If you feel this
+    is in error, please reopen the issue or file a new issue with the relevant
     details.
   markComment: 'This issue has been marked ''stale'' due to lack of recent activity.
     If there is false further activity, the issue will be closed in another 30 days.
@@ -24,7 +24,7 @@ limitPerRun: 30
 onlyLabels: []
 pulls:
   closeComment: This pull request has been closed due to inactivity. If you feel
-    this is in error, please reopen the pull request or file a new PR with the 
+    this is in error, please reopen the pull request or file a new PR with the
     relevant details.
   markComment: 'This pull request has been marked ''stale'' due to lack of recent
     activity. If there is false further activity, the PR will be closed in another
