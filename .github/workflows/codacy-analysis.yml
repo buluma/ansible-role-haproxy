@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@v4.4.0
+        uses: codacy/codacy-analysis-cli-action@v4.4.7
         with:
           format: sarif
           gh-code-scanning-compat: true
