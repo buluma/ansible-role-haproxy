@@ -1,35 +1,35 @@
 ---
 categories:
-- labels:
-  - feature
-  - enhancement
-  - dependencies
-  title: 🚀 Features
-- labels:
-  - fix
-  - bugfix
-  - bug
-  title: 🐛 Role Fixes
-- label: chore
-  title: 🧰 Maintenance
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+  - labels:
+      - feature
+      - enhancement
+      - dependencies
+    title: 🚀 Features
+  - labels:
+      - fix
+      - bugfix
+      - bug
+    title: 🐛 Role Fixes
+  - label: chore
+    title: 🧰 Maintenance
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: \<*_&
 name-template: v$NEXT_MINOR_VERSION
 tag-template: v$NEXT_MINOR_VERSION
-template: '## What’s Changed
+template: "## What’s Changed
 
 
   $CHANGES
 
-  '
+  "
 version-resolver:
   default: minor
   major:
     labels:
-    - major
+      - major
   minor:
     labels:
-    - minor
+      - minor
   patch:
     labels:
-    - patch
+      - patch
