@@ -55,7 +55,7 @@ jobs:
     steps:
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: release-drafter/release-drafter@v6
+        uses: release-drafter/release-drafter@master
         with:
           config-name: release-drafter.yml
           disable-autolabeler: false
