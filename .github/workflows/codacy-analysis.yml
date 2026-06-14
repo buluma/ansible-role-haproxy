@@ -1,6 +1,6 @@
 ---
 name: Codacy Security Scan
-true:
+"on":
   pull_request:
     branches: master
   push:

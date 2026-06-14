@@ -1,6 +1,6 @@
 ---
 name: Release Drafter
-true:
+"on":
   pull_request:
     types:
       - opened
