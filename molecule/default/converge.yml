@@ -1,6 +1,7 @@
 ---
 - become: true
   gather_facts: true
+- name: Converge
   hosts: all
   name: Converge
   roles:

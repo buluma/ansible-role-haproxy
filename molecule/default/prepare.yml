@@ -1,6 +1,7 @@
 ---
 - become: true
   gather_facts: false
+- name: Prepare
   hosts: all
   name: Prepare
   post_tasks:
