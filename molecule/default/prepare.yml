@@ -25,7 +25,7 @@
     - role: buluma.buildtools
     - role: buluma.python_pip
     - openssl_items:
-        - common_name: "{{ ansible_facts.fqdn }}"
+        - common_name: "{{ ansible_facts['fqdn'] }}"
           name: haproxy
       openssl_key_directory: /tmp
       role: buluma.openssl
@@ -38,5 +38,5 @@
       default: /var/www/html
     ansible_python_interpreter: /usr/bin/python3
     httpd_data_directory:
-      "{{ _httpd_data_directory[ansible_facts.os_family] | default(_httpd_data_directory['default']
+      "{{ _httpd_data_directory[ansible_facts['os_family']] | default(_httpd_data_directory['default']
       ) }}"

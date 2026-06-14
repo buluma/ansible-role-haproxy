@@ -29,8 +29,8 @@
   # Separator for the pre-commit handler parser.
 - name: Modify selinux settings
   when:
-    - ansible_facts.selinux.status is defined
-    - ansible_facts.selinux.status == "enabled"
+    - ansible_facts['selinux'].status is defined
+    - ansible_facts['selinux'].status == "enabled"
   block:
     - name: Add haproxy_stats_port to http_port_t selinux type
       community.general.seport:
