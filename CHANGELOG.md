@@ -44,6 +44,7 @@
 - Bump codacy/codacy-analysis-cli-action from 4.3.0 to 4.4.0 [\#84](https://github.com/buluma/ansible-role-haproxy/pull/84) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 5 to 6 [\#83](https://github.com/buluma/ansible-role-haproxy/pull/83) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/molecule-action from 6.0.0 to 6.0.1 [\#82](https://github.com/buluma/ansible-role-haproxy/pull/82) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#56](https://github.com/buluma/ansible-role-haproxy/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.6.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.6.0) (2024-01-10)
 
@@ -98,10 +99,6 @@
 ## [v2.4.5](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.5) (2022-08-21)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.4.4...v2.4.5)
-
-**Merged pull requests:**
-
-- Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#56](https://github.com/buluma/ansible-role-haproxy/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.4](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.4) (2022-05-13)
 
