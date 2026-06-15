@@ -3,22 +3,12 @@
   hosts: all
   become: true
   gather_facts: false
-  post_tasks:
-    - ansible.builtin.copy:
-        content: ok
-        dest: "{{ httpd_data_directory }}/health.html"
-        group: root
-        mode: "0644"
-        owner: root
-      name: Place health check
-    - ansible.builtin.copy:
-        content: Hello world!
-        dest: "{{ httpd_data_directory }}/index.html"
-        group: root
-        mode: "0644"
-        owner: root
-      name: Place sample page
+
   pre_tasks:
+    - name: Bootstrap
+      ansible.builtin.import_role:
+        name: buluma.bootstrap
+
     - name: Find EXTERNALLY-MANAGED files
       ansible.builtin.find:
         paths: /usr/lib
@@ -33,7 +23,6 @@
       loop: "{{ externally_managed_files.files }}"
 
   roles:
-    - role: buluma.bootstrap
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
@@ -45,12 +34,28 @@
       role: buluma.openssl
     - httpd_port: 8080
       role: buluma.httpd
+
+  post_tasks:
+    - name: Place health check
+      ansible.builtin.copy:
+        content: ok
+        dest: "{{ httpd_data_directory }}/health.html"
+        group: root
+        mode: "0644"
+        owner: root
+
+    - name: Place sample page
+      ansible.builtin.copy:
+        content: Hello world!
+        dest: "{{ httpd_data_directory }}/index.html"
+        group: root
+        mode: "0644"
+        owner: root
+
   vars:
     _httpd_data_directory:
       Alpine: /var/www/localhost/htdocs
       Suse: /srv/www/htdocs
       default: /var/www/html
     ansible_python_interpreter: /usr/bin/python3
-    httpd_data_directory:
-      "{{ _httpd_data_directory[ansible_facts['os_family']] | default(_httpd_data_directory['default']
-      ) }}"
+    httpd_data_directory: "{{ _httpd_data_directory[ansible_facts['os_family']] | default(_httpd_data_directory['default']) }}"
