@@ -35,5 +35,7 @@
         echo 'show stat' | socat unix-connect:/var/lib/haproxy/stats stdio
 
         "
+      args:
+        executable: /bin/bash
       changed_when: false
       name: Check if stats are available
