@@ -9,6 +9,11 @@
       ansible.builtin.import_role:
         name: buluma.bootstrap
 
+    - name: Ensure apache lock directory exists
+      ansible.builtin.command:
+        cmd: mkdir -p /var/lock/apache2
+        creates: /var/lock/apache2
+
     - name: Find EXTERNALLY-MANAGED files
       ansible.builtin.find:
         paths: /usr/lib
