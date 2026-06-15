@@ -1,9 +1,8 @@
 ---
-- become: true
-  gather_facts: false
 - name: Prepare
   hosts: all
-  name: Prepare
+  become: true
+  gather_facts: false
   post_tasks:
     - ansible.builtin.copy:
         content: ok
