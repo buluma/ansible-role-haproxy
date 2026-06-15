@@ -1,5 +1,9 @@
 # Changelog
 
+## [v26.6.1](https://github.com/buluma/ansible-role-haproxy/tree/v26.6.1) (2026-06-15)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v26.6.0...v26.6.1)
+
 ## [v26.6.0](https://github.com/buluma/ansible-role-haproxy/tree/v26.6.0) (2026-06-14)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v24.3.31...v26.6.0)
@@ -40,7 +44,6 @@
 - Bump codacy/codacy-analysis-cli-action from 4.3.0 to 4.4.0 [\#84](https://github.com/buluma/ansible-role-haproxy/pull/84) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 5 to 6 [\#83](https://github.com/buluma/ansible-role-haproxy/pull/83) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/molecule-action from 6.0.0 to 6.0.1 [\#82](https://github.com/buluma/ansible-role-haproxy/pull/82) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump alstr/todo-to-issue-action from 2.3 to 4.11 [\#75](https://github.com/buluma/ansible-role-haproxy/pull/75) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.6.0](https://github.com/buluma/ansible-role-haproxy/tree/v2.6.0) (2024-01-10)
 
@@ -76,6 +79,7 @@
 
 **Merged pull requests:**
 
+- Bump alstr/todo-to-issue-action from 2.3 to 4.11 [\#75](https://github.com/buluma/ansible-role-haproxy/pull/75) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump requests from 2.28.1 to 2.31.0 [\#67](https://github.com/buluma/ansible-role-haproxy/pull/67) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.6](https://github.com/buluma/ansible-role-haproxy/tree/v2.4.6) (2023-11-18)
@@ -168,7 +172,7 @@
 
 ## [v2.3.6](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.6) (2022-02-01)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.5...v2.3.6)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.4...v2.3.6)
 
 **Fixed bugs:**
 
@@ -193,13 +197,13 @@
 - Build Failed [\#21](https://github.com/buluma/ansible-role-haproxy/issues/21)
 - Build Failed [\#20](https://github.com/buluma/ansible-role-haproxy/issues/20)
 
-## [v2.3.5](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.5) (2021-05-29)
-
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.4...v2.3.5)
-
 ## [v2.3.4](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.4) (2021-05-29)
 
-[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v1.2...v2.3.4)
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v2.3.5...v2.3.4)
+
+## [v2.3.5](https://github.com/buluma/ansible-role-haproxy/tree/v2.3.5) (2021-05-29)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v1.2...v2.3.5)
 
 ## [v1.2](https://github.com/buluma/ansible-role-haproxy/tree/v1.2) (2021-04-18)
 
