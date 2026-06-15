@@ -26,7 +26,8 @@
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
-    - role: buluma.python_pip
+    - python_pip_update: false
+      role: buluma.python_pip
     - openssl_items:
         - common_name: "{{ ansible_facts['fqdn'] }}"
           name: haproxy
