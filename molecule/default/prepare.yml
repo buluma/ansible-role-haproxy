@@ -10,9 +10,10 @@
         name: buluma.bootstrap
 
     - name: Ensure apache lock directory exists
-      ansible.builtin.command:
-        cmd: mkdir -p /var/lock/apache2
-        creates: /var/lock/apache2
+      ansible.builtin.file:
+        path: /var/lock/apache2
+        state: directory
+        mode: "0755"
 
     - name: Find EXTERNALLY-MANAGED files
       ansible.builtin.find:
