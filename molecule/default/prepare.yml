@@ -5,64 +5,13 @@
   gather_facts: false
 
   pre_tasks:
-    - name: Bootstrap
-      ansible.builtin.import_role:
-        name: buluma.bootstrap
-
-    - name: Ensure apache lock directory exists
-      ansible.builtin.file:
-        path: /var/lock/apache2
-        state: directory
-        mode: "0755"
-
-    - name: Find EXTERNALLY-MANAGED files
-      ansible.builtin.find:
-        paths: /usr/lib
-        patterns: "EXTERNALLY-MANAGED"
-        recurse: true
-      register: externally_managed_files
-
-    - name: Remove EXTERNALLY-MANAGED files
-      ansible.builtin.file:
-        path: "{{ item.path }}"
-        state: absent
-      loop: "{{ externally_managed_files.files }}"
+    - name: Install sudo if missing
+      ansible.builtin.raw: "{{ ansible_pkg_mgr | default('dnf') }} install -y sudo}"
+      become: false
+      changed_when: false
+      failed_when: false
 
   roles:
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
-    - python_pip_update: false
-      role: buluma.python_pip
-    - openssl_items:
-        - common_name: "{{ ansible_facts['fqdn'] }}"
-          name: haproxy
-      openssl_key_directory: /tmp
-      role: buluma.openssl
-    - httpd_port: 8080
-      role: buluma.httpd
-
-  post_tasks:
-    - name: Place health check
-      ansible.builtin.copy:
-        content: ok
-        dest: "{{ httpd_data_directory }}/health.html"
-        group: root
-        mode: "0644"
-        owner: root
-
-    - name: Place sample page
-      ansible.builtin.copy:
-        content: Hello world!
-        dest: "{{ httpd_data_directory }}/index.html"
-        group: root
-        mode: "0644"
-        owner: root
-
-  vars:
-    _httpd_data_directory:
-      Alpine: /var/www/localhost/htdocs
-      Suse: /srv/www/htdocs
-      default: /var/www/html
-    ansible_python_interpreter: /usr/bin/python3
-    httpd_data_directory: "{{ _httpd_data_directory[ansible_facts['os_family']] | default(_httpd_data_directory['default']) }}"
