@@ -12,10 +12,10 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
 ```yaml
 ---
-- become: true
-  gather_facts: true
+- name: Converge
   hosts: all
-  name: Converge
+  become: true
+  gather_facts: true
   roles:
     - haproxy_backend_default_balance: roundrobin
       haproxy_backends:
@@ -82,47 +82,22 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 
 ```yaml
 ---
-- become: true
-  gather_facts: false
+- name: Prepare
   hosts: all
-  name: Prepare
-  post_tasks:
-    - ansible.builtin.copy:
-        content: ok
-        dest: "{{ httpd_data_directory }}/health.html"
-        group: root
-        mode: "0644"
-        owner: root
-      name: Place health check
-    - ansible.builtin.copy:
-        content: Hello world!
-        dest: "{{ httpd_data_directory }}/index.html"
-        group: root
-        mode: "0644"
-        owner: root
-      name: Place sample page
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Install sudo if missing
+      ansible.builtin.raw: "{{ ansible_pkg_mgr | default('dnf') }} install -y sudo}"
+      become: false
+      changed_when: false
+      failed_when: false
+
   roles:
-    - role: buluma.bootstrap
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
-    - role: buluma.python_pip
-    - openssl_items:
-        - common_name: "{{ ansible_fqdn }}"
-          name: haproxy
-      openssl_key_directory: /tmp
-      role: buluma.openssl
-    - httpd_port: 8080
-      role: buluma.httpd
-  vars:
-    _httpd_data_directory:
-      Alpine: /var/www/localhost/htdocs
-      Suse: /srv/www/htdocs
-      default: /var/www/html
-    ansible_python_interpreter: /usr/bin/python3
-    httpd_data_directory:
-      "{{ _httpd_data_directory[ansible_os_family] | default(_httpd_data_directory['default']
-      ) }}"
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -179,14 +154,14 @@ Here is an overview of related roles:
 
 ## [Compatibility](#compatibility)
 
-This role has been tested on these [container images](https://hub.docker.com/u/robertdebock):
+This role has been tested on these [container images](https://hub.docker.com/u/buluma):
 
 |container|tags|
 |---------|----|
-|[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|all|
-|[Debian](https://hub.docker.com/r/robertdebock/debian)|all|
-|[Fedora](https://hub.docker.com/r/robertdebock/fedora)|all|
-|[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|all|
+|[EL](https://hub.docker.com/r/buluma/enterpriselinux)|all|
+|[Debian](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
+|[Fedora](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
+|[Ubuntu](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
 
 The minimum version of Ansible required is 2.12, tests have been done on:
 
@@ -204,6 +179,3 @@ If you find issues, please register them on [GitHub](https://github.com/buluma/a
 
 [buluma](https://buluma.github.io/)
 
-### Get Help
-- Report issues: https://github.com/buluma/ansible-role-haproxy/issues/new
-- See docs: https://docs.ansible.com/collection/gallery/ansible-role-haproxy
