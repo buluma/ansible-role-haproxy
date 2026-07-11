@@ -26,7 +26,7 @@
     src: haproxy.cfg.j2
   notify:
     - Restart haproxy
-  # Separator for the pre-commit handler parser.
+# Separator for the pre-commit handler parser.
 - name: Modify selinux settings
   when:
     - ansible_facts['selinux'].status is defined
@@ -47,7 +47,7 @@
         state: true
       notify:
         - Reboot
-      # Separator for the pre-commit handler parser.
+# Separator for the pre-commit handler parser.
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
 - name: Start and enable haproxy
