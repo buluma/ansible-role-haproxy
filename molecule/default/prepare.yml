@@ -34,6 +34,7 @@
       failed_when: false
 
   roles:
+    - role: buluma.bootstrap
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
