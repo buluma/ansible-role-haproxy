@@ -46,6 +46,10 @@
         - http://localhost/
         - https://localhost/
       name: Check of content can be retrieved
+      register: _haproxy_content_check
+      until: _haproxy_content_check.status == 200
+      retries: 5
+      delay: 2
     - ansible.builtin.shell: "set -euo pipefail
 
         echo 'show stat' | socat unix-connect:/var/lib/haproxy/stats stdio
