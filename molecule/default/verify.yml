@@ -15,6 +15,22 @@
       name: Install testing requirements
       notify:
         - Uninstall testing requirements
+    - ansible.builtin.file:
+        path: /tmp/haproxy_test_backend
+        state: directory
+        mode: "0755"
+      name: Create test backend content directory
+    - ansible.builtin.copy:
+        content: "Hello World!"
+        dest: /tmp/haproxy_test_backend/index.html
+        mode: "0644"
+      name: Place sample index.html for the backend haproxy proxies to
+    - ansible.builtin.command: >-
+        systemd-run --unit=haproxy-test-backend
+        --working-directory=/tmp/haproxy_test_backend
+        python3 -m http.server 8080
+      name: Start a test backend web server on port 8080
+      changed_when: true
     - ansible.builtin.wait_for:
         port: "{{ item }}"
       loop:
