@@ -5,6 +5,11 @@
   gather_facts: true
 
   pre_tasks:
+    - name: Ensure openssl is installed
+      ansible.builtin.package:
+        name: openssl
+        state: present
+
     - name: Generate self-signed cert for https frontend test
       ansible.builtin.command: >
         openssl req -x509 -nodes -days 365 -newkey rsa:2048
