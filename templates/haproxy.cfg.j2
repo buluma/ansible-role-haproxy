@@ -7,7 +7,10 @@ global
     maxconn     4000
     user        haproxy
     group       haproxy
-    daemon
+    # No "daemon" here: systemd starts haproxy in master-worker mode
+    # (-Ws, Type=notify). Setting daemon too makes haproxy double-fork
+    # and detach from systemd's tracked pid, so the unit fails with
+    # "control process exited with error code" on start/restart.
     stats       socket /var/lib/haproxy/stats
 
 defaults
