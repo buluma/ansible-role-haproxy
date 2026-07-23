@@ -3,6 +3,21 @@
   hosts: all
   become: true
   gather_facts: true
+
+  pre_tasks:
+    - name: Generate self-signed cert for https frontend test
+      ansible.builtin.command: >
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048
+        -keyout /tmp/haproxy.key -out /tmp/haproxy.crt
+        -subj "/CN=localhost"
+      args:
+        creates: /tmp/haproxy.crt
+
+    - name: Concatenate cert and key into haproxy pem bundle
+      ansible.builtin.shell: cat /tmp/haproxy.crt /tmp/haproxy.key > /tmp/haproxy.keycrt
+      args:
+        creates: /tmp/haproxy.keycrt
+
   roles:
     - haproxy_backend_default_balance: roundrobin
       haproxy_backends:
@@ -15,7 +30,7 @@
           servers: "{{ groups['all'] }}"
         - balance: leastconn
           mode: tcp
-          name: smtp
+          name: smtp_backend
           port: 25
           servers:
             - address: 127.0.0.1
@@ -24,7 +39,7 @@
             - address: 127.0.0.2
               name: second
               port: 25
-        - http_send_name_header: Host
+        - http_send_name_header: X-Server-Name
           httpcheck: GET /v1/sys/health HTTP/1.1
           mode: tcp
           name: vault
@@ -47,7 +62,7 @@
           port: 443
           ssl: true
         - address: "*"
-          default_backend: smtp
+          default_backend: smtp_backend
           mode: tcp
           name: smtp
           port: 25
