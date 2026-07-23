@@ -37,6 +37,32 @@
         - 80
         - 443
       name: Check if port responds
+    - ansible.builtin.command: cat /etc/haproxy/haproxy.cfg
+      name: DEBUG rendered config
+      changed_when: false
+    - ansible.builtin.uri:
+        url: http://127.0.0.1:8080/
+      name: DEBUG hit the test backend directly
+      changed_when: false
+      register: _debug_direct
+      ignore_errors: true
+    - ansible.builtin.debug:
+        var: _debug_direct
+      name: DEBUG direct backend result
+    - ansible.builtin.shell: "set -euo pipefail
+
+        echo 'show stat' | socat unix-connect:/var/lib/haproxy/stats stdio
+
+        "
+      args:
+        executable: /bin/bash
+      changed_when: false
+      name: DEBUG show haproxy stats before content check
+      register: _debug_stats
+      ignore_errors: true
+    - ansible.builtin.debug:
+        var: _debug_stats.stdout_lines
+      name: DEBUG print stats
     - ansible.builtin.uri:
         status_code:
           - 200
