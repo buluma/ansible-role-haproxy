@@ -28,6 +28,7 @@
       haproxy_backends:
         - balance: roundrobin
           httpcheck: true
+          httpcheck_method: "GET / HTTP/1.1"
           name: backend
           options:
             - check
