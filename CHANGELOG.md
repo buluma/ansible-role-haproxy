@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-haproxy/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v26.6.3...HEAD)
+
+**Merged pull requests:**
+
+- chore\(deps\): bump release-drafter/release-drafter from 7 to 7.6.0 [\#102](https://github.com/buluma/ansible-role-haproxy/pull/102) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v26.6.3](https://github.com/buluma/ansible-role-haproxy/tree/v26.6.3) (2026-07-25)
 
 [Full Changelog](https://github.com/buluma/ansible-role-haproxy/compare/v26.6.2...v26.6.3)
