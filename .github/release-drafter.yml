@@ -12,24 +12,23 @@ categories:
     title: 🐛 Role Fixes
   - label: chore
     title: 🧰 Maintenance
+  - title: Minor
+    type: version-resolver
+    semver-increment: minor
+    labels:
+      - minor
+  - title: Patch
+    type: version-resolver
+    semver-increment: patch
+    labels:
+      - patch
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: \<*_&
 name-template: v$NEXT_MINOR_VERSION
 tag-template: v$NEXT_MINOR_VERSION
-template: "## What’s Changed
-
-
-  $CHANGES
-
-  "
+template: "## What’s Changed\n\n$CHANGES\n"
 version-resolver:
   default: minor
   major:
     labels:
       - major
-  minor:
-    labels:
-      - minor
-  patch:
-    labels:
-      - patch
