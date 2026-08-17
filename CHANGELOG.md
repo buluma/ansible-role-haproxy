@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): bump ansible/ansible-lint from 26.6.0 to 26.8.0 [\#103](https://github.com/buluma/ansible-role-haproxy/pull/103) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): bump release-drafter/release-drafter from 7 to 7.6.0 [\#102](https://github.com/buluma/ansible-role-haproxy/pull/102) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v26.6.3](https://github.com/buluma/ansible-role-haproxy/tree/v26.6.3) (2026-07-25)
