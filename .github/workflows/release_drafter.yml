@@ -22,31 +22,6 @@ concurrency:
   cancel-in-progress: true
   group: ${{ github.ref }}-${{ github.workflow }}
 jobs:
-  changelog_draft:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout dj-wasabi-release repo
-        uses: actions/checkout@v7
-        with:
-          path: dj-wasabi-release
-          repository: dj-wasabi/dj-wasabi-release
-      - name: Checkout current repo
-        uses: actions/checkout@v7
-        with:
-          path: ${{ github.event.repository.default_branch }}
-      - env:
-          CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        name: Commit Changelog file
-        run:
-          "# We are cloned in the 'default' directory and the dj-wasabi-release\n\
-          # repository is the 'dj-wasabi-release' next to 'default'\ncd ${{ github.event.repository.default_branch
-          }}\n# Generate CHANGELOG.md file\n../dj-wasabi-release/release.sh -d\n# Let
-          commit the changes if there are any? (Well there should be!)\nif [[ $(git
-          status | grep -c 'CHANGELOG.md' || true) -gt 0 ]]\n  then  echo \"Committing
-          file\"\n        git config --global user.name 'Shadow Walker [GH bot]'\n \
-          \       git config --global user.email 'github@buluma.me.ke'\n        git
-          add CHANGELOG.md\n        git commit -m \"Updated CHANGELOG.md on \\\"$(date
-          \"+%Y-%m-%d %H:%M:%S\")\\\"\" CHANGELOG.md\n        git push\nfi\n"
   update_release_draft:
     permissions:
       contents: write
