@@ -30,7 +30,7 @@ jobs:
     steps:
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: release-drafter/release-drafter@main
+        uses: release-drafter/release-drafter@v7.7.0
         with:
           config-name: release-drafter.yml
           disable-autolabeler: false
