@@ -16,11 +16,32 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
   hosts: all
   become: true
   gather_facts: true
+
+  pre_tasks:
+    - name: Ensure openssl is installed
+      ansible.builtin.package:
+        name: openssl
+        state: present
+
+    - name: Generate self-signed cert for https frontend test
+      ansible.builtin.command: >
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048
+        -keyout /tmp/haproxy.key -out /tmp/haproxy.crt
+        -subj "/CN=localhost"
+      args:
+        creates: /tmp/haproxy.crt
+
+    - name: Concatenate cert and key into haproxy pem bundle
+      ansible.builtin.shell: cat /tmp/haproxy.crt /tmp/haproxy.key > /tmp/haproxy.keycrt
+      args:
+        creates: /tmp/haproxy.keycrt
+
   roles:
     - haproxy_backend_default_balance: roundrobin
       haproxy_backends:
         - balance: roundrobin
           httpcheck: true
+          httpcheck_method: "GET / HTTP/1.1"
           name: backend
           options:
             - check
@@ -28,7 +49,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           servers: "{{ groups['all'] }}"
         - balance: leastconn
           mode: tcp
-          name: smtp
+          name: smtp_backend
           port: 25
           servers:
             - address: 127.0.0.1
@@ -37,7 +58,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
             - address: 127.0.0.2
               name: second
               port: 25
-        - http_send_name_header: Host
+        - http_send_name_header: X-Server-Name
           httpcheck: GET /v1/sys/health HTTP/1.1
           mode: tcp
           name: vault
@@ -60,7 +81,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           port: 443
           ssl: true
         - address: "*"
-          default_backend: smtp
+          default_backend: smtp_backend
           mode: tcp
           name: smtp
           port: 25
@@ -117,6 +138,7 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
       failed_when: false
 
   roles:
+    - role: buluma.bootstrap
     - role: buluma.core_dependencies
     - role: buluma.epel
     - role: buluma.buildtools
